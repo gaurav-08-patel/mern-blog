@@ -3,15 +3,19 @@ import {
     Navbar,
     NavbarCollapse,
     NavbarLink,
+    NavbarToggle,
     TextInput,
 } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { FaMoon, FaSearch } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
+    const path = useLocation().pathname;
     return (
         <Navbar className="border-b-2 ">
-            <Link className="whitespace-nowrap dark:text-white font-bold">
+            <Link className="md:text-xl whitespace-nowrap dark:text-white font-bold">
                 <span className="px-2 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white py-1">
                     Gaurav's
                 </span>
@@ -45,16 +49,19 @@ const Header = () => {
                 >
                     <FaMoon />
                 </Button>
+            <NavbarToggle className="border">
+                <RxHamburgerMenu />
+            </NavbarToggle>
             </div>
             <NavbarCollapse>
-                <NavbarLink active>
-                    <Link to="/">Home</Link>
+                <NavbarLink active={path === "/"}>
+                    <Link to="/" className="w-full font-bold lg:text-[17px]">Home</Link>
                 </NavbarLink>
-                <NavbarLink>
-                    <Link to="/about">About</Link>
+                <NavbarLink active={path === "/about"}>
+                    <Link to="/about" className="w-full font-bold lg:text-[17px]">About</Link>
                 </NavbarLink>
-                <NavbarLink>
-                    <Link to="/projects">Projects</Link>
+                <NavbarLink active={path === "/projects"}>
+                    <Link to="/projects" className="w-full font-bold lg:text-[17px]">Projects</Link>
                 </NavbarLink>
             </NavbarCollapse>
         </Navbar>
