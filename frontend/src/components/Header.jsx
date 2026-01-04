@@ -54,13 +54,13 @@ const Header = () => {
             </NavbarToggle>
             </div>
             <NavbarCollapse>
-                <NavbarLink active={path === "/"}>
+                <NavbarLink active={path === "/"} as={"div"}>
                     <Link to="/" className="w-full font-bold lg:text-[17px]">Home</Link>
                 </NavbarLink>
-                <NavbarLink active={path === "/about"}>
+                <NavbarLink active={path === "/about"} as={"div"}>
                     <Link to="/about" className="w-full font-bold lg:text-[17px]">About</Link>
                 </NavbarLink>
-                <NavbarLink active={path === "/projects"}>
+                <NavbarLink active={path === "/projects"} as={"div"}>
                     <Link to="/projects" className="w-full font-bold lg:text-[17px]">Projects</Link>
                 </NavbarLink>
             </NavbarCollapse>
