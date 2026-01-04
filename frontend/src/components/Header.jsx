@@ -38,7 +38,7 @@ const Header = () => {
 
             <div className="flex gap-1 md:order-2">
                 <Link to="/signin">
-                    <Button className="bg-linear-to-r from-purple-500 to-blue-500">
+                    <Button className="cursor-pointer bg-linear-to-r from-purple-500 to-blue-500">
                         Sign In
                     </Button>
                 </Link>
