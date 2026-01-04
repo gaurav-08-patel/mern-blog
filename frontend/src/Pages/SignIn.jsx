@@ -2,7 +2,7 @@
 
 const SignIn = () => {
   return (
-    <div>
+    <div className="min-h-screen">
 SignIn      
     </div>
   )

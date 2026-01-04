@@ -12,7 +12,7 @@ import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
 const FooterComp = () => {
     return (
-        <Footer className="border border-t-2 border-teal-400 flex flex-col  md:items-start   ">
+        <Footer className="border border-t-5 border-teal-400 flex flex-col  md:items-start   ">
             <div className="p-5">
                 <Link className="md:text-xl whitespace-nowrap dark:text-white font-bold">
                     <span className="px-2 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white py-1">
