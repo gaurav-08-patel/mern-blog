@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
@@ -7,20 +7,32 @@ import Projects from "./Pages/Projects";
 import About from "./Pages/About";
 import Header from "./components/Header";
 import FooterComp from "./components/FooterComp";
+import { useAuthContext } from "./context/AuthContext";
 
 function App() {
+    let { authUser } = useAuthContext();
+
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
+                <Route
+                    path="/"
+                    element={authUser ? <Home /> : <Navigate to={"/signin"} />}
+                />
+                <Route
+                    path="/signup"
+                    element={authUser ? <Navigate to={"/"} /> : <SignUp />}
+                />
+                <Route
+                    path="/signin"
+                    element={authUser ? <Navigate to={"/"} /> : <SignIn />}
+                />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/about" element={<About />} />
             </Routes>
-            <FooterComp/>
+            <FooterComp />
         </BrowserRouter>
     );
 }

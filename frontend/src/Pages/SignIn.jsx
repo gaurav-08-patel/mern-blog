@@ -1,8 +1,10 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
+    let { saveAuthUser } = useAuthContext();
     let [formData, setFormData] = useState({});
     let [errorMessage, setErrorMessage] = useState(null);
     let [loading, setLoading] = useState(false);
@@ -33,8 +35,10 @@ const SignIn = () => {
             }
 
             if (res.ok) {
+                saveAuthUser(data);
                 navigate("/");
             }
+            
         } catch (error) {
             setErrorMessage(error.message);
         } finally {
@@ -64,7 +68,6 @@ const SignIn = () => {
                         className="flex flex-col gap-3"
                         onSubmit={handleSubmit}
                     >
-                        
                         <div>
                             <Label className="font-semibold">Your email</Label>
                             <TextInput
