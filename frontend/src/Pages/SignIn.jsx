@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import OAuth from "../components/OAuth";
 
 const SignIn = () => {
     let { saveAuthUser } = useAuthContext();
@@ -38,7 +39,7 @@ const SignIn = () => {
                 saveAuthUser(data);
                 navigate("/");
             }
-            
+
         } catch (error) {
             setErrorMessage(error.message);
         } finally {
@@ -105,6 +106,7 @@ const SignIn = () => {
                             )}
                             {!loading && "Sign In"}
                         </Button>
+                        <OAuth/>
                     </form>
                     <p className="mt-2">
                         Dont have an account ?{" "}

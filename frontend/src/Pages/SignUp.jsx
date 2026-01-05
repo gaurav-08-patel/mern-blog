@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
     let [formData, setFormData] = useState({});
@@ -112,6 +113,7 @@ const SignUp = () => {
                             )}
                             {!loading && "Sign Up"}
                         </Button>
+                        <OAuth />
                     </form>
                     <p className="mt-2">
                         Have an account ?{" "}
