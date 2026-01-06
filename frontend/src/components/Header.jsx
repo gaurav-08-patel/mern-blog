@@ -17,7 +17,7 @@ import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
 const Header = () => {
-    const { authUser } = useAuthContext();
+    const { authUser} = useAuthContext();
 
     const path = useLocation().pathname;
     return (
