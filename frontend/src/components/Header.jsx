@@ -1,5 +1,9 @@
 import {
+    Avatar,
     Button,
+    Dropdown,
+    DropdownHeader,
+    DropdownItem,
     Navbar,
     NavbarCollapse,
     NavbarLink,
@@ -10,8 +14,11 @@ import { Link } from "react-router-dom";
 import { FaMoon, FaSearch } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useLocation } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const Header = () => {
+    const { authUser } = useAuthContext();
+
     const path = useLocation().pathname;
     return (
         <Navbar className="border-b-2 ">
@@ -37,32 +44,68 @@ const Header = () => {
             </form>
 
             <div className="flex gap-1 md:order-2">
-                <Link to="/signin">
-                    <Button className="cursor-pointer bg-linear-to-r from-purple-500 to-blue-500">
-                        Sign In
-                    </Button>
-                </Link>
-
                 <Button
                     className="bg-white text-gray border cursor-pointer hover:bg-white"
                     pill
                 >
                     <FaMoon />
                 </Button>
-            <NavbarToggle className="border">
-                <RxHamburgerMenu />
-            </NavbarToggle>
+                {authUser ? (
+                    <Dropdown
+                        className="cursor-pointer"
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <Avatar
+                                rounded
+                                img={authUser.profilePicture}
+                            ></Avatar>
+                        }
+                    >
+                        <DropdownHeader>
+                            <span className="block text-sm">
+                                @{authUser.username}
+                            </span>
+                            <span className="font-semibold text-sm truncate">
+                                {authUser.email}
+                            </span>
+                        </DropdownHeader>
+                        <Link to={"/dashboard?tab=profile"}>
+                            <DropdownItem>Profile</DropdownItem>
+                        </Link>
+                        <DropdownItem>Sign out</DropdownItem>
+                    </Dropdown>
+                ) : (
+                    <Link to="/signin">
+                        <Button className="cursor-pointer bg-linear-to-r from-purple-500 to-blue-500">
+                            Sign In
+                        </Button>
+                    </Link>
+                )}
+
+                <NavbarToggle className="border">
+                    <RxHamburgerMenu />
+                </NavbarToggle>
             </div>
             <NavbarCollapse>
-                <NavbarLink active={path === "/"} as={"div"}>
-                    <Link to="/" className="w-full font-bold lg:text-[17px]">Home</Link>
-                </NavbarLink>
-                <NavbarLink active={path === "/about"} as={"div"}>
-                    <Link to="/about" className="w-full font-bold lg:text-[17px]">About</Link>
-                </NavbarLink>
-                <NavbarLink active={path === "/projects"} as={"div"}>
-                    <Link to="/projects" className="w-full font-bold lg:text-[17px]">Projects</Link>
-                </NavbarLink>
+                <Link to="/" className="w-full font-bold lg:text-[17px]">
+                    <NavbarLink active={path === "/"} as={"div"}>
+                        Home
+                    </NavbarLink>
+                </Link>
+                <Link to="/about" className="w-full font-bold lg:text-[17px]">
+                    <NavbarLink active={path === "/about"} as={"div"}>
+                        About
+                    </NavbarLink>
+                </Link>
+                <Link
+                    to="/projects"
+                    className="w-full font-bold lg:text-[17px]"
+                >
+                    <NavbarLink active={path === "/projects"} as={"div"}>
+                        Projects
+                    </NavbarLink>
+                </Link>
             </NavbarCollapse>
         </Navbar>
     );
