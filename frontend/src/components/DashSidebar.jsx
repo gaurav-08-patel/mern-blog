@@ -38,6 +38,7 @@ const DashSidebar = () => {
                                 label="User"
                                 labelColor="dark"
                                 active={tab === "profile"}
+                                as={'div'}
                             >
                                 Profile
                             </SidebarItem>

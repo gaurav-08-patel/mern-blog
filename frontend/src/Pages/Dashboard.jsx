@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
     const location = useLocation();
-    console.log(location);
     let [tab, setTab] = useState("");
 
     useEffect(() => {

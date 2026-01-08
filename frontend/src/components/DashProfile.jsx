@@ -1,8 +1,23 @@
 import { Button, TextInput } from "flowbite-react";
 import { useAuthContext } from "../context/AuthContext";
+import { useState } from "react";
 
 const DashProfile = () => {
-    let { authUser } = useAuthContext();
+    const { authUser } = useAuthContext();
+    const [imageFile, setImageFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
+
+    function handleImage(e) {
+        const file = e.target.files[0];
+
+        if (file) {
+            setImageFile(e.target);
+            setImageUrl(URL.createObjectURL(file));
+        }
+        
+        
+    }
+
     return (
         <div className=" w-full">
             <div className=" max-w-lg mx-auto">
@@ -11,8 +26,14 @@ const DashProfile = () => {
                 </h1>
                 <form className="flex flex-col items-center mt-4 gap-4">
                     <div className="h-32 w-32 rounded-full border-5 border-[lightgray] shadow-xl self-center">
+                        <input
+                            type="file"
+                            onChange={handleImage}
+                            accept="image/*"
+                        />
                         <img
-                            src={authUser.profilePicture}
+                            n
+                            src={imageUrl ||  authUser.profilePicture}
                             alt="Profile picture"
                             className="w-full h-full rounded-full cursor-pointer object-cover"
                         />
