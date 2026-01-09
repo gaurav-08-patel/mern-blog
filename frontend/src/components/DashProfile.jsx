@@ -1,4 +1,4 @@
-import { Button, TextInput } from "flowbite-react";
+import { Alert, Button, TextInput } from "flowbite-react";
 import { useAuthContext } from "../context/AuthContext";
 import { useRef, useState } from "react";
 
@@ -6,10 +6,15 @@ const DashProfile = () => {
     const { authUser } = useAuthContext();
     const [imageFile, setImageFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [error, setError] = useState(null);
     const filePickerRef = useRef();
 
     function handleImage(e) {
+        setError(null);
         const file = e.target.files[0];
+        if (file.type !== "image/png") {
+            return setError("Only image/png files are allowed !");
+        }
 
         if (file) {
             setImageFile(file);
@@ -30,16 +35,12 @@ const DashProfile = () => {
 
             const data = await res.json();
             if (!res.ok) {
-                console.log("err response");
-                
-                throw Error("Uplaod Error");
+                throw Error("Internal Server Error .");
             }
+            setImageUrl(data.url);
         } catch (error) {
-            console.log(error);
-            
+            setError("Internal Server Error");
         }
-
-        // console.log("Uploaded Image URL:", JSON.stringify(data.url));
     };
 
     return (
@@ -68,6 +69,14 @@ const DashProfile = () => {
                             className="w-full h-full rounded-full cursor-pointer object-cover"
                         />
                     </div>
+                    {error && (
+                        <Alert
+                            color="failure"
+                            className="w-full flex items-center"
+                        >
+                            {error}
+                        </Alert>
+                    )}
                     <TextInput
                         className="w-full"
                         type="text"
