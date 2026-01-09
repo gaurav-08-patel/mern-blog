@@ -1,22 +1,46 @@
 import { Button, TextInput } from "flowbite-react";
 import { useAuthContext } from "../context/AuthContext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const DashProfile = () => {
     const { authUser } = useAuthContext();
     const [imageFile, setImageFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const filePickerRef = useRef();
 
     function handleImage(e) {
         const file = e.target.files[0];
 
         if (file) {
-            setImageFile(e.target);
+            setImageFile(file);
             setImageUrl(URL.createObjectURL(file));
+            handleUpload(file);
         }
-        
-        
     }
+
+    const handleUpload = async (file) => {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                console.log("err response");
+                
+                throw Error("Uplaod Error");
+            }
+        } catch (error) {
+            console.log(error);
+            
+        }
+
+        // console.log("Uploaded Image URL:", JSON.stringify(data.url));
+    };
 
     return (
         <div className=" w-full">
@@ -25,15 +49,21 @@ const DashProfile = () => {
                     Profile
                 </h1>
                 <form className="flex flex-col items-center mt-4 gap-4">
-                    <div className="h-32 w-32 rounded-full border-5 border-[lightgray] shadow-xl self-center">
+                    <div
+                        onClick={() => {
+                            filePickerRef.current.click();
+                        }}
+                        className="h-32 w-32 rounded-full border-5 border-[lightgray] shadow-xl self-center overflow-hidden"
+                    >
                         <input
                             type="file"
                             onChange={handleImage}
                             accept="image/*"
+                            ref={filePickerRef}
+                            hidden
                         />
                         <img
-                            n
-                            src={imageUrl ||  authUser.profilePicture}
+                            src={imageUrl || authUser.profilePicture}
                             alt="Profile picture"
                             className="w-full h-full rounded-full cursor-pointer object-cover"
                         />
