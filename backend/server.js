@@ -1,9 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose
     .connect(process.env.Mongo_DB_URI)
@@ -14,16 +16,17 @@ mongoose
         console.log(err);
     });
 
-import userRoute from "./routes/auth.routes.js";
+import authRoute from "./routes/auth.routes.js";
+import userRoute from "./routes/user.routes.js";
 import { upload } from "./hooks/uploadImg.js";
 
-app.use("/api/auth", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 // Route for uploading image
 app.post("/api/upload", upload.single("image"), (req, res) => {
-  res.json({ url: req.file.path }); // Cloudinary URL
+    res.json({ url: req.file.path }); // Cloudinary URL
 });
-
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT} .`);
