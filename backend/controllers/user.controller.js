@@ -2,8 +2,6 @@ import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
 
 export const updateUser = async (req, res) => {
-    console.log(req.body);
-
     if (req.user.id !== req.params.userId) {
         return res.status(403).json("You are not allowed to update this user");
     }
@@ -56,5 +54,18 @@ export const updateUser = async (req, res) => {
         res.json(rest);
     } catch (error) {
         res.status(500).json("Username or email already taken.");
+    }
+};
+
+export const deleteUser = async (req, res) => {
+    if (req.user.id !== req.params.userId) {
+        return res.status(403).json("You are not allowed to delete this user.");
+    }
+
+    try {
+        await User.findByIdAndDelete(req.user.id);
+        res.status(200).json("User deleted succcessfully.");
+    } catch (error) {
+        res.status(400).json(error.message);
     }
 };
