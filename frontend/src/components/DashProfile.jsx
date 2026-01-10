@@ -11,6 +11,7 @@ const DashProfile = () => {
     });
 
     const { authUser, saveAuthUser } = useAuthContext();
+    const [userUpdateSuccess, setUserUpdateSuccess] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
@@ -24,9 +25,9 @@ const DashProfile = () => {
 
     async function handleSubmit(e) {
         setError(null);
-        console.log("submit");
         e.preventDefault();
         if (Object.keys(formData).length === 0 && !imageFile) return;
+        console.log("submit");
         try {
             setLoading(true);
 
@@ -38,14 +39,18 @@ const DashProfile = () => {
 
             let data = await res.json();
             if (!res.ok) {
+                setUserUpdateSuccess(null);
                 return setError(data);
             }
 
             saveAuthUser(data);
+            setUserUpdateSuccess("User updated Successfully .");
         } catch (error) {
             console.log(error);
         } finally {
             setLoading(false);
+            setFormData({});
+            setImageFile(null);
         }
     }
 
@@ -178,6 +183,11 @@ const DashProfile = () => {
                     <span className="cursor-pointer ">Delete Account</span>
                     <span className="cursor-pointer ">Sign Out</span>
                 </div>
+                {userUpdateSuccess && (
+                    <Alert color="success" className="my-2">
+                        {userUpdateSuccess}
+                    </Alert>
+                )}
             </div>
         </div>
     );
