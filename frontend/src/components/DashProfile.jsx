@@ -48,6 +48,10 @@ const DashProfile = () => {
         }
     }
 
+    function handleSignOut() {
+        deleteAuthUser();
+    }
+
     async function handleSubmit(e) {
         setError(null);
         e.preventDefault();
@@ -211,7 +215,7 @@ const DashProfile = () => {
                     >
                         Delete Account
                     </span>
-                    <span className="cursor-pointer ">Sign Out</span>
+                    <span className="cursor-pointer " onClick={()=>handleSignOut()}>Sign Out</span>
                 </div>
                 {userUpdateSuccess && (
                     <Alert color="success" className="my-2">

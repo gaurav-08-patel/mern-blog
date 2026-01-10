@@ -17,8 +17,12 @@ import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
 const Header = () => {
-    const { authUser} = useAuthContext();
+    const { authUser, deleteAuthUser } = useAuthContext();
 
+    function handleSignOut() {
+        deleteAuthUser();
+    }
+    
     const path = useLocation().pathname;
     return (
         <Navbar className="border-b-2 ">
@@ -73,7 +77,9 @@ const Header = () => {
                         <Link to={"/dashboard?tab=profile"}>
                             <DropdownItem>Profile</DropdownItem>
                         </Link>
-                        <DropdownItem>Sign out</DropdownItem>
+                        <DropdownItem onClick={() => handleSignOut()}>
+                            Sign out
+                        </DropdownItem>
                     </Dropdown>
                 ) : (
                     <Link to="/signin">

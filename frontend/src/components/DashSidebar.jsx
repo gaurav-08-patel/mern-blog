@@ -8,6 +8,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../context/AuthContext";
 
 const customTheme = {
     item: {
@@ -16,8 +17,13 @@ const customTheme = {
 };
 
 const DashSidebar = () => {
+    let { deleteAuthUser } = useAuthContext();
     const location = useLocation();
     let [tab, setTab] = useState("");
+
+    function handleSignOut() {
+        deleteAuthUser();
+    }
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -38,14 +44,18 @@ const DashSidebar = () => {
                                 label="User"
                                 labelColor="dark"
                                 active={tab === "profile"}
-                                as={'div'}
+                                as={"div"}
                             >
                                 Profile
                             </SidebarItem>
                         </Link>
                     </SidebarItemGroup>
                     <SidebarItemGroup className="">
-                        <SidebarItem icon={ArrowRightIcon}>
+                        <SidebarItem
+                            icon={ArrowRightIcon}
+                            onClick={() => handleSignOut()}
+                            className="cursor-pointer"
+                        >
                             Sign out
                         </SidebarItem>
                     </SidebarItemGroup>
