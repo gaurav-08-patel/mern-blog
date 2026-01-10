@@ -2,7 +2,8 @@ import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
 
 export const updateUser = async (req, res) => {
-    console.log(req.user);
+    console.log(req.body);
+
     if (req.user.id !== req.params.userId) {
         return res.status(403).json("You are not allowed to update this user");
     }
@@ -35,15 +36,16 @@ export const updateUser = async (req, res) => {
         }
     }
     try {
+        const updateFields = {};
+        if (username) updateFields.username = username;
+        if (email) updateFields.email = email;
+        if (profilePicture) updateFields.profilePicture = profilePicture;
+        if (password) updateFields.password = password;
+
         let updatedUser = await User.findByIdAndUpdate(
             req.params.userId,
             {
-                $set: {
-                    username: req.body.username,
-                    email: req.body.email,
-                    profilePicture: req.body.profilePicture,
-                    password: req.body.password,
-                },
+                $set: updateFields,
             },
             { new: true }
         );
