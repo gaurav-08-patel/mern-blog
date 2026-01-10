@@ -37,10 +37,11 @@ export const updateUser = async (req, res) => {
     }
     try {
         const updateFields = {};
-        if (username) updateFields.username = username;
-        if (email) updateFields.email = email;
-        if (profilePicture) updateFields.profilePicture = profilePicture;
-        if (password) updateFields.password = password;
+        if (req.body.username) updateFields.username = req.body.username;
+        if (req.body.email) updateFields.email = req.body.email;
+        if (req.body.profilePicture)
+            updateFields.profilePicture = req.body.profilePicture;
+        if (req.body.password) updateFields.password = req.body.password;
 
         let updatedUser = await User.findByIdAndUpdate(
             req.params.userId,
@@ -54,6 +55,6 @@ export const updateUser = async (req, res) => {
 
         res.json(rest);
     } catch (error) {
-        res.status(500).json(error.message);
+        res.status(500).json("Username or email already taken.");
     }
 };
