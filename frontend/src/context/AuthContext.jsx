@@ -24,9 +24,14 @@ export let AuthContextProvider = ({ children }) => {
         localStorage.setItem("blogApp-user-info", JSON.stringify(data));
         setAuthUser(data);
     }
+    
+    function deleteAuthUser(){
+        localStorage.removeItem("blogApp-user-info");
+        setAuthUser(null);
+    }
 
     return (
-        <authContext.Provider value={{ authUser, saveAuthUser , theme , setTheme}}>
+        <authContext.Provider value={{ authUser, saveAuthUser , theme , setTheme,deleteAuthUser}}>
             {children}
         </authContext.Provider>
     );

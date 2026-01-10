@@ -1,6 +1,15 @@
-import { Alert, Button, Spinner, TextInput } from "flowbite-react";
+import {
+    Alert,
+    Button,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    Spinner,
+    TextInput,
+} from "flowbite-react";
 import { useAuthContext } from "../context/AuthContext";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const DashProfile = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +19,8 @@ const DashProfile = () => {
         profilePicture: null,
     });
 
-    const { authUser, saveAuthUser } = useAuthContext();
+    const { authUser, saveAuthUser, deleteAuthUser } = useAuthContext();
+    const [openModal, setOpenModal] = useState(false);
     const [userUpdateSuccess, setUserUpdateSuccess] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isImageUploading, setIsImageUploading] = useState(false);
@@ -19,9 +29,24 @@ const DashProfile = () => {
     const [error, setError] = useState(null);
     const filePickerRef = useRef();
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
+    async function handleDeleteUser() {
+        setOpenModal(false);
+        try {
+            let res = await fetch(`api/user/delete/${authUser._id}`, {
+                method: "DELETE",
+            });
+
+            let data = await res.json();
+            if (!res.ok) {
+                return setError(data);
+            }
+
+            //remove User-info from localStorage
+            deleteAuthUser();
+        } catch (error) {
+            setError("Error while deleting the account.");
+        }
+    }
 
     async function handleSubmit(e) {
         setError(null);
@@ -103,7 +128,7 @@ const DashProfile = () => {
 
     return (
         <div className=" w-full">
-            <div className=" max-w-lg mx-auto">
+            <div className=" max-w-lg mx-auto p-2">
                 <h1 className="text-center font-semibold text-3xl my-6">
                     Profile
                 </h1>
@@ -180,7 +205,12 @@ const DashProfile = () => {
                     </Button>
                 </form>
                 <div className="text-red-500 flex justify-between mt-2">
-                    <span className="cursor-pointer ">Delete Account</span>
+                    <span
+                        className="cursor-pointer "
+                        onClick={() => setOpenModal(true)}
+                    >
+                        Delete Account
+                    </span>
                     <span className="cursor-pointer ">Sign Out</span>
                 </div>
                 {userUpdateSuccess && (
@@ -188,6 +218,36 @@ const DashProfile = () => {
                         {userUpdateSuccess}
                     </Alert>
                 )}
+                <Modal
+                    show={openModal}
+                    size="md"
+                    onClose={() => setOpenModal(false)}
+                    popup
+                >
+                    <ModalHeader />
+                    <ModalBody>
+                        <div className="text-center">
+                            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                Are you sure you want to delete this account?
+                            </h3>
+                            <div className="flex justify-center gap-4">
+                                <Button
+                                    color="red"
+                                    onClick={() => handleDeleteUser()}
+                                >
+                                    Yes, I'm sure
+                                </Button>
+                                <Button
+                                    color="alternative"
+                                    onClick={() => setOpenModal(false)}
+                                >
+                                    No, cancel
+                                </Button>
+                            </div>
+                        </div>
+                    </ModalBody>
+                </Modal>
             </div>
         </div>
     );
