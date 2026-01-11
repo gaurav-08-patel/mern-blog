@@ -40,9 +40,13 @@ export const signin = async (req, res) => {
         return res.status(400).json({ message: "Invalid credentials !" });
     }
 
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "15d",
-    });
+    const token = jwt.sign(
+        { id: validUser._id, isAdmin: validUser.isAdmin },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "15d",
+        }
+    );
 
     let { password: pass, ...rest } = validUser._doc;
     res.status(200)
@@ -54,12 +58,17 @@ export const signin = async (req, res) => {
 
 export const google = async (req, res) => {
     const { name, email, googlePhotoUrl } = req.body;
+
     try {
         let user = await User.findOne({ email });
         if (user) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-                expiresIn: "15d",
-            });
+            const token = jwt.sign(
+                { id: user._id, isAdmin: user.isAdmin },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "15d",
+                }
+            );
 
             const { password, ...rest } = user._doc;
 
@@ -85,7 +94,7 @@ export const google = async (req, res) => {
 
             await newUser.save();
             const token = jwt.sign(
-                { id: newUser._id },
+                { id: newUser._id, isAdmin: newUser.isAdmin },
                 process.env.JWT_SECRET,
                 {
                     expiresIn: "15d",
