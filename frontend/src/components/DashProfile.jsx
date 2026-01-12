@@ -10,6 +10,7 @@ import {
 import { useAuthContext } from "../context/AuthContext";
 import { useRef, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
     const [formData, setFormData] = useState({
@@ -207,6 +208,16 @@ const DashProfile = () => {
                             "Update"
                         )}
                     </Button>
+                    {authUser.isAdmin && (
+                        <Link to={"/createpost"} className="w-full">
+                            <Button
+                                type="button"
+                                className="w-full bg-linear-to-r from-blue-500 to-green-500 hover:bg-linear-to-l focus:ring-purple-200 dark:focus:ring-purple-800 cursor-pointer font-semibold"
+                            >
+                                Create Post
+                            </Button>
+                        </Link>
+                    )}
                 </form>
                 <div className="text-red-500 flex justify-between mt-2">
                     <span
@@ -215,7 +226,12 @@ const DashProfile = () => {
                     >
                         Delete Account
                     </span>
-                    <span className="cursor-pointer " onClick={()=>handleSignOut()}>Sign Out</span>
+                    <span
+                        className="cursor-pointer "
+                        onClick={() => handleSignOut()}
+                    >
+                        Sign Out
+                    </span>
                 </div>
                 {userUpdateSuccess && (
                     <Alert color="success" className="my-2">

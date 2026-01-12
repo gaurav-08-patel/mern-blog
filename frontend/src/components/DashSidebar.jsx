@@ -17,7 +17,7 @@ const customTheme = {
 };
 
 const DashSidebar = () => {
-    let { deleteAuthUser } = useAuthContext();
+    let { deleteAuthUser, authUser } = useAuthContext();
     const location = useLocation();
     let [tab, setTab] = useState("");
 
@@ -41,7 +41,7 @@ const DashSidebar = () => {
                         <Link to={"/dashboard?tab=profile"}>
                             <SidebarItem
                                 icon={HiUser}
-                                label="User"
+                                label={authUser.isAdmin ? "Admin" : "User"}
                                 labelColor="dark"
                                 active={tab === "profile"}
                                 as={"div"}

@@ -8,6 +8,7 @@ import About from "./Pages/About";
 import Header from "./components/Header";
 import FooterComp from "./components/FooterComp";
 import { useAuthContext } from "./context/AuthContext";
+import CreatePost from "./Pages/CreatePost";
 
 function App() {
     let { authUser } = useAuthContext();
@@ -31,7 +32,17 @@ function App() {
                 <Route
                     path="/dashboard"
                     element={
-                        authUser ?<Dashboard /> :  <Navigate to={"/signin"} />
+                        authUser ? <Dashboard /> : <Navigate to={"/signin"} />
+                    }
+                />
+                <Route
+                    path="/createpost"
+                    element={
+                        authUser && authUser.isAdmin ? (
+                            <CreatePost />
+                        ) : (
+                            <Navigate to={"/signin"} />
+                        )
                     }
                 />
                 <Route path="/projects" element={<Projects />} />
