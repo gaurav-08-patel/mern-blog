@@ -50,6 +50,12 @@ const CreatePost = () => {
                         console.log(data);
                     }}
                 />
+                <Button
+                        type="submit"
+                        className="bg-linear-to-r from-blue-500 to-green-500 hover:bg-linear-to-l focus:ring-purple-200 dark:focus:ring-purple-800 cursor-pointer font-semibold"
+                    >
+                        Publish
+                    </Button>
             </form>
         </div>
     );
