@@ -13,12 +13,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 const DashProfile = () => {
-    const [formData, setFormData] = useState({
-        username: null,
-        email: null,
-        password: null,
-        profilePicture: null,
-    });
+    const [formData, setFormData] = useState({});
 
     const { authUser, saveAuthUser, deleteAuthUser } = useAuthContext();
     const [openModal, setOpenModal] = useState(false);
@@ -56,7 +51,7 @@ const DashProfile = () => {
     async function handleSubmit(e) {
         setError(null);
         e.preventDefault();
-        if (Object.keys(formData).length === 0 || !imageFile) return;
+        if (Object.keys(formData).length === 0 && !imageFile) return;
         console.log("submit");
         try {
             setLoading(true);
