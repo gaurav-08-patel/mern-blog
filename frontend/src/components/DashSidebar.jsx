@@ -6,7 +6,7 @@ import {
     SidebarItems,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { HiUser } from "react-icons/hi";
+import { HiDocumentText, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -37,7 +37,7 @@ const DashSidebar = () => {
         <div className="md:h-full">
             <Sidebar className="w-full md:w-56 lg:w-70 " theme={customTheme}>
                 <SidebarItems className="">
-                    <SidebarItemGroup>
+                    <SidebarItemGroup className="flex flex-col ">
                         <Link to={"/dashboard?tab=profile"}>
                             <SidebarItem
                                 icon={HiUser}
@@ -47,6 +47,16 @@ const DashSidebar = () => {
                                 as={"div"}
                             >
                                 Profile
+                            </SidebarItem>
+                        </Link>
+                        <Link to={"/dashboard?tab=posts"}>
+                            <SidebarItem
+                                icon={HiDocumentText}
+                                labelColor="dark"
+                                active={tab === "posts"}
+                                as={"div"}
+                            >
+                                Posts
                             </SidebarItem>
                         </Link>
                     </SidebarItemGroup>
