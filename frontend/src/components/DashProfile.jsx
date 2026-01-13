@@ -56,7 +56,7 @@ const DashProfile = () => {
     async function handleSubmit(e) {
         setError(null);
         e.preventDefault();
-        if (Object.keys(formData).length === 0 && !imageFile) return;
+        if (Object.keys(formData).length === 0 || !imageFile) return;
         console.log("submit");
         try {
             setLoading(true);

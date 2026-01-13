@@ -49,16 +49,18 @@ const DashSidebar = () => {
                                 Profile
                             </SidebarItem>
                         </Link>
-                        <Link to={"/dashboard?tab=posts"}>
-                            <SidebarItem
-                                icon={HiDocumentText}
-                                labelColor="dark"
-                                active={tab === "posts"}
-                                as={"div"}
-                            >
-                                Posts
-                            </SidebarItem>
-                        </Link>
+                        {authUser.isAdmin && (
+                            <Link to={"/dashboard?tab=posts"}>
+                                <SidebarItem
+                                    icon={HiDocumentText}
+                                    labelColor="dark"
+                                    active={tab === "posts"}
+                                    as={"div"}
+                                >
+                                    Posts
+                                </SidebarItem>
+                            </Link>
+                        )}
                     </SidebarItemGroup>
                     <SidebarItemGroup className="">
                         <SidebarItem
