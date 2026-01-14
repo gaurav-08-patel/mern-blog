@@ -39,7 +39,7 @@ const DashPosts = () => {
         <div className="p-2 table-auto  min-h-screen">
             {authUser.isAdmin && userPosts.length > 0 ? (
                 <>
-                    <Table hoverable>
+                    <Table hoverable className="divide-y shadow rounded-2xl">
                         <TableHead>
                             <TableRow>
                                 <TableHeadCell>Date Updated</TableHeadCell>
@@ -50,7 +50,7 @@ const DashPosts = () => {
                                 <TableHeadCell>edit</TableHeadCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody >
                             {userPosts.map((post) => (
                                 <TableRow>
                                     <TableCell>
@@ -63,22 +63,28 @@ const DashPosts = () => {
                                             <img
                                                 src={post.image}
                                                 alt={post.title}
-                                                className=" h-10  object-cover"
+                                                className=" h-12  object-cover w-16"
                                             />
                                         </Link>
                                     </TableCell>
                                     <TableCell>
-                                        <span className="font-semibold text-gray-800 dark:text-white">
-                                            aytwfdyawdfyag awy a GAuw sbjdv h
-                                            ajeyfg hjsjrgfygusyrsy suy{" "}
-                                            {post.title}
-                                        </span>
+                                        <Link to={`/post/${post.slug}`}>
+                                            <span className="font-semibold text-gray-800 dark:text-white">
+                                                {post.title}
+                                            </span>
+                                        </Link>
                                     </TableCell>
                                     <TableCell>{post.category}</TableCell>
-                                    <TableCell>Delete</TableCell>
                                     <TableCell>
-                                        <Link to={`/edit/${post._id}`}>
-                                            Edit
+                                        <span className="text-red-500 hover:underline font-semibold cursor-pointer">
+                                            Delete
+                                        </span>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Link to={`/updatepost/${post._id}`}>
+                                            <span className="text-slate-500 font-semibold hover:underline">
+                                                Edit
+                                            </span>
                                         </Link>
                                     </TableCell>
                                 </TableRow>
