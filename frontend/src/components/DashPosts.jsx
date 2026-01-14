@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalHeader,
     Table,
     TableBody,
     TableCell,
@@ -9,11 +13,34 @@ import {
     TableRow,
 } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const DashPosts = () => {
     const [showMore, setShowMore] = useState(true);
     let { authUser } = useAuthContext();
     const [userPosts, setUserPosts] = useState({});
+    const [openModal, setOpenModal] = useState(false);
+    const [postToDelete, setPostToDelete] = useState("");
+
+    async function handleDeletePost() {
+        setOpenModal(false);
+
+        try {
+            let res = await fetch(
+                `/api/post/deletepost/${postToDelete}/${authUser._id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (res.ok) {
+                setUserPosts((prev) =>
+                    prev.filter((post) => post._id !== postToDelete)
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async function handleShowMore() {
         let startIndex = userPosts.length;
@@ -21,7 +48,7 @@ const DashPosts = () => {
             let res = await fetch(
                 `/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`
             );
-            let data =await res.json();
+            let data = await res.json();
             if (res.ok) {
                 setUserPosts([...userPosts, ...data.posts]);
                 if (data.posts.length < 9) {
@@ -96,7 +123,13 @@ const DashPosts = () => {
                                     </TableCell>
                                     <TableCell>{post.category}</TableCell>
                                     <TableCell>
-                                        <span className="text-red-500 hover:underline font-semibold cursor-pointer">
+                                        <span
+                                            className="text-red-500 hover:underline font-semibold cursor-pointer"
+                                            onClick={() => {
+                                                setOpenModal(true);
+                                                setPostToDelete(post._id);
+                                            }}
+                                        >
                                             Delete
                                         </span>
                                     </TableCell>
@@ -123,6 +156,36 @@ const DashPosts = () => {
             ) : (
                 <p className="text-center my-3">You have no posts</p>
             )}
+            <Modal
+                show={openModal}
+                size="md"
+                onClose={() => setOpenModal(false)}
+                popup
+            >
+                <ModalHeader />
+                <ModalBody>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Are you sure you want to delete this post?
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button
+                                color="red"
+                                onClick={() => handleDeletePost()}
+                            >
+                                Yes, I'm sure
+                            </Button>
+                            <Button
+                                color="alternative"
+                                onClick={() => setOpenModal(false)}
+                            >
+                                No, cancel
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
         </div>
     );
 };
