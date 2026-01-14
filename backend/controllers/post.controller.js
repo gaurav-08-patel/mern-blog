@@ -32,8 +32,6 @@ export const create = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
-    console.log("api posts");
-
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
         const limit = parseInt(req.query.startIndex) || 9;

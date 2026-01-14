@@ -17,13 +17,13 @@ const Dashboard = () => {
     }, [location.search]);
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row">
+        <div className="min-h-screen flex flex-col md:flex-row ">
             {/* Sidebar */}
             <div>
                 <DashSidebar />
             </div>
             {/* Profile.... */}
-            <div className="w-full">
+            <div className="w-full overflow-x-scroll scrollbar scrollbar-track-transparent scrollbar-thumb-slate-500">
                 {tab === "profile" && <DashProfile />}
                 {tab === "posts" && <DashPosts />}
             </div>
