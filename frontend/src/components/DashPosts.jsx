@@ -11,10 +11,27 @@ import {
 import { Link } from "react-router-dom";
 
 const DashPosts = () => {
+    const [showMore, setShowMore] = useState(true);
     let { authUser } = useAuthContext();
     const [userPosts, setUserPosts] = useState({});
 
-    console.log("userpost", userPosts);
+    async function handleShowMore() {
+        let startIndex = userPosts.length;
+        try {
+            let res = await fetch(
+                `/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`
+            );
+            let data =await res.json();
+            if (res.ok) {
+                setUserPosts([...userPosts, ...data.posts]);
+                if (data.posts.length < 9) {
+                    setShowMore(false);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         async function fetchPosts() {
@@ -26,6 +43,9 @@ const DashPosts = () => {
 
                 if (res.ok) {
                     setUserPosts(data.posts);
+                    if (data.posts.length < 9) {
+                        setShowMore(false);
+                    }
                 }
             } catch (error) {
                 console.log(error);
@@ -50,7 +70,7 @@ const DashPosts = () => {
                                 <TableHeadCell>edit</TableHeadCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody >
+                        <TableBody>
                             {userPosts.map((post) => (
                                 <TableRow>
                                     <TableCell>
@@ -91,6 +111,14 @@ const DashPosts = () => {
                             ))}
                         </TableBody>
                     </Table>
+                    {showMore && (
+                        <button
+                            onClick={handleShowMore}
+                            className="text-teal-500 w-full cursor-pointer my-2"
+                        >
+                            Show more
+                        </button>
+                    )}
                 </>
             ) : (
                 <p className="text-center my-3">You have no posts</p>
