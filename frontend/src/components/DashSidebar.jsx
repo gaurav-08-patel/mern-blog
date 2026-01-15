@@ -6,7 +6,7 @@ import {
     SidebarItems,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { HiDocumentText, HiUser } from "react-icons/hi";
+import { HiDocumentText, HiOutlineUserGroup, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -49,6 +49,18 @@ const DashSidebar = () => {
                                 Profile
                             </SidebarItem>
                         </Link>
+                        {authUser.isAdmin && (
+                            <Link to={"/dashboard?tab=users"}>
+                                <SidebarItem
+                                    icon={HiOutlineUserGroup}
+                                    labelColor="dark"
+                                    active={tab === "users"}
+                                    as={"div"}
+                                >
+                                    Users
+                                </SidebarItem>
+                            </Link>
+                        )}
                         {authUser.isAdmin && (
                             <Link to={"/dashboard?tab=posts"}>
                                 <SidebarItem

@@ -3,6 +3,7 @@ import DashProfile from "../components/DashProfile";
 import DashSidebar from "../components/DashSidebar";
 import { useLocation } from "react-router-dom";
 import DashPosts from "../components/DashPosts";
+import DashUsers from "../components/DashUsers";
 
 const Dashboard = () => {
     const location = useLocation();
@@ -26,6 +27,7 @@ const Dashboard = () => {
             <div className="w-full overflow-x-scroll scrollbar scrollbar-track-transparent scrollbar-thumb-slate-500">
                 {tab === "profile" && <DashProfile />}
                 {tab === "posts" && <DashPosts />}
+                {tab === "users" && <DashUsers />}
             </div>
         </div>
     );
