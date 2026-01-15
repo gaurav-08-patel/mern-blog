@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import FooterComp from "./components/FooterComp";
 import { useAuthContext } from "./context/AuthContext";
 import CreatePost from "./Pages/CreatePost";
+import UpdatePost from "./Pages/UpdatePost";
 
 function App() {
     let { authUser } = useAuthContext();
@@ -40,6 +41,16 @@ function App() {
                     element={
                         authUser && authUser.isAdmin ? (
                             <CreatePost />
+                        ) : (
+                            <Navigate to={"/signin"} />
+                        )
+                    }
+                />
+                <Route
+                    path="/updatepost/:postId"
+                    element={
+                        authUser && authUser.isAdmin ? (
+                            <UpdatePost />
                         ) : (
                             <Navigate to={"/signin"} />
                         )
