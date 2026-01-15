@@ -89,9 +89,15 @@ const DashPosts = () => {
                     <Table hoverable className="divide-y shadow rounded-2xl">
                         <TableHead>
                             <TableRow>
-                                <TableHeadCell>Date Updated</TableHeadCell>
-                                <TableHeadCell>post image</TableHeadCell>
-                                <TableHeadCell>post title</TableHeadCell>
+                                <TableHeadCell className="whitespace-nowrap">
+                                    Date Updated
+                                </TableHeadCell>
+                                <TableHeadCell className="whitespace-nowrap">
+                                    post image
+                                </TableHeadCell>
+                                <TableHeadCell className="whitespace-nowrap">
+                                    post title
+                                </TableHeadCell>
                                 <TableHeadCell>category</TableHeadCell>
                                 <TableHeadCell>delete</TableHeadCell>
                                 <TableHeadCell>edit</TableHeadCell>

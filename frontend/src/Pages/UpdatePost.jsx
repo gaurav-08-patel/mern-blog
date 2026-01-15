@@ -10,8 +10,10 @@ import { useEffect, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const UpdatePost = () => {
+    let { authUser } = useAuthContext();
     let { postId } = useParams();
     let navigate = useNavigate();
     const [file, setFile] = useState(null);
@@ -19,7 +21,7 @@ const UpdatePost = () => {
     const [isPostPublishing, setIsPostPublishing] = useState(false);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [formData, setFormData] = useState({});
-    const [publishError, setPublishError] = useState(false);
+    const [errorFetchingPost, setErrorFetchingPost] = useState(false);
 
     // useEffect(() => {
     //     console.log(formData);
@@ -30,7 +32,7 @@ const UpdatePost = () => {
             try {
                 let res = await fetch(`/api/post/getposts?postId=${postId}`);
                 let data = await res.json();
-                if (!res.ok) return setPublishError(true);
+                if (!res.ok) return setErrorFetchingPost(true);
                 if (res.ok) {
                     setFormData({
                         title: data.posts[0].title,
@@ -92,11 +94,14 @@ const UpdatePost = () => {
 
         try {
             setIsPostPublishing(true);
-            let res = await fetch("/api/post/create", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            let res = await fetch(
+                `/api/post/updatepost/${postId}/${authUser._id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                }
+            );
 
             let data = await res.json();
 
@@ -106,7 +111,7 @@ const UpdatePost = () => {
             console.log(data);
             navigate(`/post/${data.slug}`);
         } catch (error) {
-            setError("Error while publishing post.");
+            setError("Error while updating the post.");
         } finally {
             setIsPostPublishing(false);
         }
@@ -114,12 +119,10 @@ const UpdatePost = () => {
 
     return (
         <div className="min-h-screen max-w-3xl mx-auto p-2">
-            {publishError ? (
-                
-                    <h1 className="text-center my-2">
-                        Error while fetching the posts data or post doesnt exist.
-                    </h1>
-                
+            {errorFetchingPost ? (
+                <h1 className="text-center my-2">
+                    Error while fetching the posts data or post doesnt exist.
+                </h1>
             ) : (
                 <>
                     <h1 className=" text-center my-4 text-2xl font-semibold">
@@ -231,7 +234,7 @@ const UpdatePost = () => {
                                         </span>
                                     </>
                                 ) : (
-                                    "Update"
+                                    "Update Post"
                                 )}
                             </Button>
                         </div>
