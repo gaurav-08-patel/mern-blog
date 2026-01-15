@@ -69,3 +69,46 @@ export const deleteUser = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+
+export const getUsers = async (req, res) => {
+    if (!req.user.isAdmin) {
+        res.status(403).json("You are not allowed to get all users data .");
+    }
+
+    let startIndex = req.query.startIndex || 0;
+    let limit = req.query.limit || 9;
+    let order = req.query.order === "asc" ? 1 : -1;
+
+    try {
+        let users = await User.find()
+            .sort({ createdAt: order })
+            .skip(startIndex)
+            .limit(limit);
+        let usersWithoutPassword = users.map((user) => {
+            const { password, ...rest } = user._doc;
+            return rest;
+        });
+
+        const totalUsers = await User.countDocuments();
+
+        const now = new Date();
+        const oneMonthAgo = new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            now.getDate()
+        );
+
+        let lastMonthUsers = await User.countDocuments({
+            createdAt: { $gte: oneMonthAgo },
+        });
+
+        res.status(200).json({
+            users: usersWithoutPassword,
+            totalUsers,
+            lastMonthUsers,
+        });
+        
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+};
