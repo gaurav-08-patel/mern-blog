@@ -5,6 +5,7 @@ import {
     Modal,
     ModalBody,
     ModalHeader,
+    Spinner,
     Table,
     TableBody,
     TableCell,
@@ -21,6 +22,7 @@ const DashPosts = () => {
     const [userPosts, setUserPosts] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [postToDelete, setPostToDelete] = useState("");
+    const [fetchingPost, setFetchingPost] = useState(false);
 
     async function handleDeletePost() {
         setOpenModal(false);
@@ -61,8 +63,9 @@ const DashPosts = () => {
     }
 
     useEffect(() => {
-        async function fetchPosts() {
+        async function fetchingPost() {
             try {
+                setFetchingPost(true);
                 let res = await fetch(
                     `/api/post/getposts?userId=${authUser._id}`
                 );
@@ -76,10 +79,12 @@ const DashPosts = () => {
                 }
             } catch (error) {
                 console.log(error);
+            } finally {
+                setFetchingPost(false);
             }
         }
 
-        fetchPosts();
+        fetchingPost();
     }, [authUser._id]);
 
     return (
@@ -159,6 +164,14 @@ const DashPosts = () => {
                         </button>
                     )}
                 </>
+            ) : fetchingPost ? (
+                <div className="text-center my-3">
+                    <Spinner
+                        aria-label="Alternate spinner button example"
+                        size="sm"
+                    />
+                    <span className="pl-3">Loading Posts...</span>
+                </div>
             ) : (
                 <p className="text-center my-3">You have no posts</p>
             )}

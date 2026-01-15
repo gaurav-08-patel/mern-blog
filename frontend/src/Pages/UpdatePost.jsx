@@ -88,7 +88,7 @@ const UpdatePost = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null);
-        if (!formData.title || !formData.content) {
+        if (!formData.content) {
             return setError("Fill in the required fields ( title & content ) ");
         }
 
