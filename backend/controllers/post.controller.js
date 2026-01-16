@@ -99,7 +99,17 @@ export const updatePost = async (req, res) => {
     try {
         let filteredData = {};
 
-        if (req.body.title) filteredData.title = req.body.title;
+        if (req.body.title) {
+            //if user updates title then slug should be updated too
+            let slug = req.body.title
+                .split(" ")
+                .join("-")
+                .toLowerCase()
+                .replace(/[^a-zA-Z0-9-]/g, "-");
+            filteredData.title = req.body.title;
+            filteredData.slug = slug;
+        }
+
         if (req.body.category) filteredData.category = req.body.category;
         if (req.body.content) filteredData.content = req.body.content;
         if (req.body.image) filteredData.image = req.body.image;
