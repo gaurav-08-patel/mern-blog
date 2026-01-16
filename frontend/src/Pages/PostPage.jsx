@@ -30,7 +30,6 @@ const PostPage = () => {
                     setError(true)
                 }
 
-                console.log(data.posts[0]);
             } catch (error) {
                 setError(true);
                 setLoading(false);
