@@ -207,14 +207,20 @@ const UpdatePost = () => {
                                 className="w-full h-72 object-cover"
                             />
                         )}
-                        <CKEditor
-                            editor={ClassicEditor}
-                            data={formData.content}
-                            onChange={(event, editor) => {
-                                const data = editor.getData();
-                                setFormData({ ...formData, content: data });
-                            }}
-                        />
+                        
+                        <div className="flex flex-col mt-3">
+                            <span className="text-gray-600 text-[10px] text-center">
+                                (Write code inside &lt;code&gt; tag)
+                            </span>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={formData.content}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setFormData({ ...formData, content: data });
+                                }}
+                            />
+                        </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400 text-[10px] text-center">
                                 (Upload image before publishing your post)
