@@ -10,6 +10,7 @@ import FooterComp from "./components/FooterComp";
 import { useAuthContext } from "./context/AuthContext";
 import CreatePost from "./Pages/CreatePost";
 import UpdatePost from "./Pages/UpdatePost";
+import PostPage from "./Pages/PostPage";
 
 function App() {
     let { authUser } = useAuthContext();
@@ -57,6 +58,7 @@ function App() {
                     }
                 />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/post/:postSlug" element={<PostPage />} />
                 <Route path="/about" element={<About />} />
             </Routes>
             <FooterComp />

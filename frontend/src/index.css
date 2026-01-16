@@ -3,6 +3,38 @@
 @source "../.flowbite-react/class-list.json";
 @plugin 'tailwind-scrollbar';
 
-.ck-content{
+.ck-content {
     min-height: 350px;
 }
+
+.ck-content h2,
+.ck-content h3,
+.ck-content h4 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ck-content a,
+.post-content a {
+    color: blueviolet;
+}
+
+.ck-content a:hover,
+.post-content a:hover {
+    text-decoration: underline;
+}
+
+.post-content p,
+ul {
+    margin-bottom: 20px;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
