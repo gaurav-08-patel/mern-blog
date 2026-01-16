@@ -42,7 +42,7 @@ const PostPage = () => {
         );
     return (
         <main className="min-h-screen max-w-4xl mx-auto p-3 flex flex-col">
-            <h1 className="font-bold text-4xl lg:text-5xl text-center my-6">
+            <h1 className="font-semibold text-4xl lg:text-5xl text-center my-6">
                 {post?.title}
             </h1>
 
@@ -72,7 +72,7 @@ const PostPage = () => {
                 dangerouslySetInnerHTML={{ __html: post.content }}
                 className="p-3 w-full max-w-2xl mx-auto post-content"
             ></div>
-            <div className="max-w-4xl bg-amber-500">
+            <div className="max-w-4xl ">
                 <CallToAction/>
             </div>
         </main>
