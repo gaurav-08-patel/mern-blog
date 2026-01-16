@@ -71,8 +71,6 @@ const DashUsers = () => {
                 let data = await res.json();
 
                 if (res.ok) {
-                    console.log(data.users);
-
                     setUsers(data.users);
                     if (data.users.length < 9) {
                         setShowMore(false);
@@ -114,7 +112,7 @@ const DashUsers = () => {
                         </TableHead>
                         <TableBody>
                             {users.map((user) => (
-                                <TableRow>
+                                <TableRow key={user._id}>
                                     <TableCell>
                                         {new Date(
                                             user.updatedAt
