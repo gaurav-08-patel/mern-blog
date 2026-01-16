@@ -26,6 +26,10 @@ const PostPage = () => {
                 setPost(data.posts[0]);
                 setLoading(false);
 
+                if(!data.posts[0]){
+                    setError(true)
+                }
+
                 console.log(data.posts[0]);
             } catch (error) {
                 setError(true);
@@ -44,7 +48,7 @@ const PostPage = () => {
 
     if (error)
         return (
-            <p className="text-center my-3 w-full mx-auto">
+            <p className="text-center my-3 min-h-screen">
                 Error while getting post or post may not exist.
             </p>
         );
