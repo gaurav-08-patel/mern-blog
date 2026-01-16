@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
+import CommentSection from "../components/CommentSection";
 
 const PostPage = () => {
     let { postSlug } = useParams();
@@ -40,6 +41,13 @@ const PostPage = () => {
                 <Spinner size="xl" />
             </div>
         );
+
+    if (error)
+        return (
+            <p className="text-center my-3 w-full mx-auto">
+                Error while getting post or post may not exist.
+            </p>
+        );
     return (
         <main className="min-h-screen max-w-4xl mx-auto p-3 flex flex-col">
             <h1 className="font-semibold text-4xl lg:text-5xl text-center my-6">
@@ -73,8 +81,9 @@ const PostPage = () => {
                 className="p-3 w-full max-w-2xl mx-auto post-content"
             ></div>
             <div className="max-w-4xl ">
-                <CallToAction/>
+                <CallToAction />
             </div>
+            <CommentSection postId={post._id} />
         </main>
     );
 };
