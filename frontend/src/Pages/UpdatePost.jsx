@@ -51,13 +51,15 @@ const UpdatePost = () => {
     }, [postId]);
 
     const handleUpload = async () => {
+        setError(null);
         if (!file) {
             return setError("Please select an image.");
         }
 
-        if (file.type !== "image/png") {
-            return setError("Only image/png files are allowed !");
+        if (file.type !== "image/png" && file.type !== "image/jpeg") {
+            return setError("Only png/jpeg files are allowed !");
         }
+
         const formData = new FormData();
         formData.append("image", file);
 
@@ -207,7 +209,7 @@ const UpdatePost = () => {
                                 className="w-full h-72 object-cover"
                             />
                         )}
-                        
+
                         <div className="flex flex-col mt-3">
                             <span className="text-gray-600 text-[10px] text-center">
                                 (Write code inside &lt;code&gt; tag)
