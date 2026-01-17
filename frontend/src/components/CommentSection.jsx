@@ -1,11 +1,41 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { Button, Textarea } from "flowbite-react";
+import { Alert, Button, Spinner, Textarea } from "flowbite-react";
 import { useState } from "react";
 
 const CommentSection = ({ postId }) => {
     let { authUser } = useAuthContext();
     const [comment, setComment] = useState("");
+    const [commentError, setCommentError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (comment.length === 0) return;
+
+        try {
+            setLoading(true);
+            let res = await fetch(`/api/comment/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    content: comment,
+                    postId: postId,
+                    userId: authUser._id,
+                }),
+            });
+
+            let data = await res.json();
+            if (res.ok) {
+                setComment("");
+                setCommentError(null);
+            }
+        } catch (error) {
+            setCommentError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="max-w-2xl mx-auto w-full my-4">
@@ -37,7 +67,10 @@ const CommentSection = ({ postId }) => {
                 </div>
             )}
 
-            <form className="mt-4 p-3 border border-teal-500 rounded">
+            <form
+                className="mt-4 p-3 border border-teal-500 rounded"
+                onSubmit={handleSubmit}
+            >
                 <Textarea
                     placeholder="Add a comment..."
                     maxLength={200}
@@ -50,12 +83,27 @@ const CommentSection = ({ postId }) => {
                     </span>
                     <Button
                         type="submit"
-                        className={`cursor-pointer bg-linear-to-r from-blue-500 to-green-500 hover:bg-linear-to-l focus:ring-purple-200 dark:focus:ring-purple-800  font-semibold`}
+                        className={`cursor-pointer bg-linear-to-r from-blue-500 to-green-500 hover:bg-linear-to-l focus:ring-purple-200 dark:focus:ring-purple-800  font-semibold flex gap-1 justify-center items-center`}
                         size="sm"
                     >
-                        Submit
+                        {loading ? (
+                            <>
+                                <Spinner
+                                    size="sm"
+                                    className="flex justify-center"
+                                />{" "}
+                                <span>Submitting...</span>
+                            </>
+                        ) : (
+                            "Submit"
+                        )}
                     </Button>
                 </div>
+                {commentError && (
+                    <Alert color="failure" className="mt-5">
+                        {commentError}
+                    </Alert>
+                )}
             </form>
         </div>
     );
