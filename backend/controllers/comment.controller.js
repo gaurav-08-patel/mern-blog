@@ -21,5 +21,17 @@ export const createComment = async (req, res) => {
         res.status(200).json(newComment);
     } catch (error) {
         res.status(400).json(error.message);
-    } 
+    }
+};
+
+export const getComments = async (req, res) => {
+    try {
+        let comments = await Comment.find({ postId: req.params.postId })
+            .sort({ createdAt: -1 })
+            .populate("userId" , "_id username email profilePicture");
+
+        res.status(200).json(comments);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
 };
