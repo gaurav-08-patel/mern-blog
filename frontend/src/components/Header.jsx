@@ -48,12 +48,7 @@ const Header = () => {
             </form>
 
             <div className="flex gap-1 md:order-2">
-                <Button
-                    className="bg-white text-gray border cursor-pointer hover:bg-white"
-                    pill
-                >
-                    <FaMoon />
-                </Button>
+                
                 {authUser ? (
                     <Dropdown
                         className="cursor-pointer"
