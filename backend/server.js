@@ -18,12 +18,14 @@ mongoose
 
 import authRoute from "./routes/auth.routes.js";
 import userRoute from "./routes/user.routes.js";
-import postRoute from './routes/post.routes.js'
+import postRoute from "./routes/post.routes.js";
+import commentRoute from "./routes/comment.routes.js";
 import { upload } from "./hooks/uploadImg.js";
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
+app.use("/api/comment", commentRoute);
 
 // Route for uploading image
 app.post("/api/upload", upload.single("image"), (req, res) => {
