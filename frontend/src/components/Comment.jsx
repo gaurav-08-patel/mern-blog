@@ -1,9 +1,31 @@
 import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useAuthContext } from "../context/AuthContext";
+import { useState } from "react";
+import { Button, Textarea } from "flowbite-react";
 
-const Comment = ({ comment, onLike }) => {
+const Comment = ({ comment, onLike, edit }) => {
     let { authUser } = useAuthContext();
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedContent, setEditedContent] = useState(comment.content);
+
+    async function handleSave() {
+        setIsEditing(false);
+        try {
+            let res = await fetch(`/api/comment/editComment/${comment._id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: editedContent }),
+            });
+
+            if (res.ok) {
+                let data = await res.json();
+                edit(comment._id, data.content);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="flex my-4 gap-3 border-b-2 border-gray-200 p-3">
@@ -27,19 +49,57 @@ const Comment = ({ comment, onLike }) => {
                             {moment(comment.createdAt).fromNow()}
                         </span>
                     </div>
-                    <p className="text-gray-600 wrap-break-word">
-                        {comment.content}
-                    </p>
+                    {!isEditing && (
+                        <p className="text-gray-600 wrap-break-word">
+                            {comment.content}
+                        </p>
+                    )}
                 </div>
-                <div className="border-t border-gray-400 max-w-fit mt-3">
-                    <button
-                        className={`flex gap-1 items-center text-xs pt-1 cursor-pointer text-gray-500 hover:text-blue-500 ${authUser && comment.likes.includes(authUser._id) && "text-blue-500!"}`}
-                        onClick={() => onLike(comment._id)}
-                    >
-                        <FaThumbsUp />
-                        <span>{comment.numberOfLikes}</span>
-                    </button>
-                </div>
+                {isEditing ? (
+                    <div className="mt-2 flex flex-col gap-3">
+                        <Textarea
+                            value={editedContent}
+                            onChange={(e) => setEditedContent(e.target.value)}
+                        />
+                        <div className="ml-auto flex gap-2">
+                            <Button
+                                color={"purple"}
+                                className="bg-linear-to-br from-green-400 to-blue-600 text-white hover:bg-linear-to-bl focus:ring-green-200 cursor-pointer"
+                                onClick={handleSave}
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                onClick={() => setIsEditing(false)}
+                                color={"red"}
+                                outline
+                                className="bg-red-300 cursor-pointer"
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="border-t border-gray-400 max-w-fit mt-3  text-xs text-gray-500 flex items-center gap-3 pt-1">
+                        <button
+                            className={`flex gap-1 items-center cursor-pointer hover:text-blue-500 ${authUser && comment.likes.includes(authUser._id) && "text-blue-500!"}`}
+                            onClick={() => onLike(comment._id)}
+                        >
+                            <FaThumbsUp />
+                            <span>{comment.numberOfLikes}</span>
+                        </button>
+                        {authUser &&
+                            (authUser.id === comment.userId ||
+                                authUser.isAdmin) && (
+                                <button
+                                    className="hover:text-blue-500 cursor-pointer hover:underline"
+                                    onClick={() => setIsEditing(true)}
+                                >
+                                    Edit
+                                </button>
+                            )}
+                    </div>
+                )}
             </div>
         </div>
     );
