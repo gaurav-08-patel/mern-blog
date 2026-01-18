@@ -59,3 +59,24 @@ export const likeComment = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+
+export const editComment = async (req, res) => {
+    try {
+        let comment = await Comment.findById(req.params.commentId);
+
+        if (!comment) {
+            res.status(404).json("Comment not found.");
+        }
+
+        const editedComment = await Comment.findByIdAndUpdate(
+            req.params.commendId,
+            {
+                content: req.body.content,
+            },
+            { new: true },
+        );
+        res.status(200).json(editedComment);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+};

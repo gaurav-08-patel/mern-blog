@@ -29,13 +29,11 @@ const Comment = ({ comment, onLike }) => {
                     </div>
                     <p className="text-gray-600 wrap-break-word">
                         {comment.content}
-                        FaThumbsUpFaThumbsUpFaThumbsUpFaThumbsUpFaThumbsUpFaThumbsUpFaThumbsUpFaThumbsUp
-                        kawjhdagbwidvia ajwbd ugawh dg
                     </p>
                 </div>
-                <div className="border-t border-gray-400 w-fit mt-3">
+                <div className="border-t border-gray-400 max-w-fit mt-3">
                     <button
-                        className={`flex gap-1 items-center text-sm cursor-pointer text-gray-500 hover:text-blue-500 ${authUser && comment.likes.includes(authUser._id) && "text-blue-500!"}`}
+                        className={`flex gap-1 items-center text-xs pt-1 cursor-pointer text-gray-500 hover:text-blue-500 ${authUser && comment.likes.includes(authUser._id) && "text-blue-500!"}`}
                         onClick={() => onLike(comment._id)}
                     >
                         <FaThumbsUp />
