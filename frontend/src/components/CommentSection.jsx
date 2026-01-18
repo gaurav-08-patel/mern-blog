@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { Alert, Button, Spinner, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
 
 const CommentSection = ({ postId }) => {
+    let navigate = useNavigate();
     let { authUser } = useAuthContext();
     const [comment, setComment] = useState("");
     const [commentError, setCommentError] = useState(null);
@@ -27,6 +28,38 @@ const CommentSection = ({ postId }) => {
         fetchComments();
     }, [postId]);
 
+    async function handleLike(commentId) {
+        if (!authUser) {
+            navigate("/signin");
+            return;
+        }
+
+        try {
+            let res = await fetch(`/api/comment/likeComment/${commentId}`, {
+                method: "PUT",
+            });
+
+            if (res.ok) {
+                let data = await res.json();
+
+                let filteredComments = comments.map((comment) => {
+                    if (comment._id === data._id) {
+                        return {
+                            ...comment,
+                            likes: data.likes,
+                            numberOfLikes: data.numberOfLikes,
+                        };
+                    } else {
+                        return comment;
+                    }
+                });
+                setComments(filteredComments);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         if (comment.length === 0) return;
@@ -46,7 +79,7 @@ const CommentSection = ({ postId }) => {
             let data = await res.json();
             if (res.ok) {
                 setComment("");
-                setComments([data,...comments]);
+                setComments([data, ...comments]);
                 setCommentError(null);
             }
         } catch (error) {
@@ -137,7 +170,11 @@ const CommentSection = ({ postId }) => {
                     </div>
                     <div>
                         {comments.map((comment) => (
-                            <Comment key={comment._id} comment={comment} />
+                            <Comment
+                                key={comment._id}
+                                comment={comment}
+                                onLike={handleLike}
+                            />
                         ))}
                     </div>
                 </div>
