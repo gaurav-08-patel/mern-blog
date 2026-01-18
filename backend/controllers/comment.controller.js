@@ -18,7 +18,12 @@ export const createComment = async (req, res) => {
 
         await newComment.save();
 
-        res.status(200).json(newComment);
+        let populatedComment = await Comment.findById(newComment._id).populate(
+            "userId",
+            "_id username email profilePicture",
+        );
+
+        res.status(200).json(populatedComment);
     } catch (error) {
         res.status(400).json(error.message);
     }
