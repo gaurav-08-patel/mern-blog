@@ -100,6 +100,21 @@ const CommentSection = ({ postId }) => {
             }),
         );
     }
+
+    async function handleDelete(commentId) {
+        console.log(commentId);
+        try {
+            let res = await fetch(`/api/comment/deleteComment/${commentId}`, {
+                method: "DELETE",
+            });
+
+            if (res.ok) {
+                setComments(comments.filter((c) => c._id !== commentId));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div className="max-w-2xl mx-auto w-full my-4">
             {authUser ? (
@@ -186,6 +201,7 @@ const CommentSection = ({ postId }) => {
                                 comment={comment}
                                 onLike={handleLike}
                                 edit={handleEdit}
+                                deleteComment={handleDelete}
                             />
                         ))}
                     </div>

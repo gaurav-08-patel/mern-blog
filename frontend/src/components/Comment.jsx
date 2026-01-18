@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
 import { Button, Textarea } from "flowbite-react";
 
-const Comment = ({ comment, onLike, edit }) => {
+const Comment = ({ comment, onLike, edit, deleteComment }) => {
     let { authUser } = useAuthContext();
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState(comment.content);
@@ -96,6 +96,16 @@ const Comment = ({ comment, onLike, edit }) => {
                                     onClick={() => setIsEditing(true)}
                                 >
                                     Edit
+                                </button>
+                            )}
+                        {authUser &&
+                            (authUser.id === comment.userId ||
+                                authUser.isAdmin) && (
+                                <button
+                                    className=" cursor-pointer hover:underline text-red-500"
+                                    onClick={() => deleteComment(comment._id)}
+                                >
+                                    Delete
                                 </button>
                             )}
                     </div>
