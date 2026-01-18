@@ -28,7 +28,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
     }
 
     return (
-        <div className="flex my-4 gap-3 border-b-2 border-gray-200 p-3">
+        <div className="flex my-4 gap-3 border-b-2 border-gray-200 dark:border-slate-800 p-3">
             <div className=" shrink-0">
                 <img
                     src={
@@ -50,7 +50,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
                         </span>
                     </div>
                     {!isEditing && (
-                        <p className="text-gray-600 wrap-break-word">
+                        <p className="text-gray-600 wrap-break-word dark:text-[#838181]">
                             {comment.content}
                         </p>
                     )}
