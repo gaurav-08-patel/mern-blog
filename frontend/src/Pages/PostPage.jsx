@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
+import PostCard from "../components/PostCard";
 
 const PostPage = () => {
     let { postSlug } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [post, setPost] = useState({});
+    const [recentPosts, setRecentPosts] = useState([]);
 
     useEffect(() => {
         async function fetchPost() {
@@ -26,10 +28,9 @@ const PostPage = () => {
                 setPost(data.posts[0]);
                 setLoading(false);
 
-                if(!data.posts[0]){
-                    setError(true)
+                if (!data.posts[0]) {
+                    setError(true);
                 }
-
             } catch (error) {
                 setError(true);
                 setLoading(false);
@@ -37,6 +38,22 @@ const PostPage = () => {
         }
         fetchPost();
     }, [postSlug]);
+
+    useEffect(() => {
+        async function fetchRecentPost() {
+            try {
+                let res = await fetch(`/api/post/getposts?limit=3`);
+
+                if (res.ok) {
+                    let data = await res.json();
+                    setRecentPosts(data.posts);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchRecentPost();
+    }, []);
 
     if (loading)
         return (
@@ -87,6 +104,15 @@ const PostPage = () => {
                 <CallToAction />
             </div>
             <CommentSection postId={post._id} />
+            <div className="">
+                <h1 className="text-2xl text-center my-4">Recent Articles</h1>
+                <div className="flex flex-wrap justify-center gap-2">
+                    {recentPosts &&
+                        recentPosts.map((post) => (
+                            <PostCard key={post._id} post={post} />
+                        ))}
+                </div>
+            </div>
         </main>
     );
 };

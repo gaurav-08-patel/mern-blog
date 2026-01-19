@@ -51,7 +51,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
                     </div>
                     {!isEditing && (
                         <p className="text-gray-600 wrap-break-word dark:text-[#838181]">
-                            {comment.content}
+                            {comment.content.trim()}
                         </p>
                     )}
                 </div>
