@@ -29,7 +29,7 @@ export const createComment = async (req, res) => {
     }
 };
 
-export const getComments = async (req, res) => {
+export const getPostComments = async (req, res) => {
     try {
         let comments = await Comment.find({ postId: req.params.postId })
             .sort({ createdAt: -1 })
@@ -110,5 +110,39 @@ export const deleteComment = async (req, res) => {
         res.status(200).json("Comment has been deleted");
     } catch (error) {
         res.status(400).json(error.message);
+    }
+};
+
+export const getComments = async (req, res) => {
+    if (!req.user.isAdmin) {
+        res.status(403).json("You are not authorized to get comments");
+    }
+
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 9;
+    const sortDirection = req.query.order === "asc" ? 1 : -1;
+
+    try {
+        let comments = await Comment.find({})
+            .sort({ createdAt: sortDirection })
+            .skip(startIndex)
+            .limit(limit);
+
+        const totalComments = await Comment.countDocuments();
+
+        const now = new Date();
+        const oneMonthAgo = new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            now.getDate(),
+        );
+
+        const lastMonthComments = await Comment.countDocuments({
+            createdAt: { $gte: oneMonthAgo },
+        });
+
+        res.status(200).json({ comments, totalComments, lastMonthComments });
+    } catch (error) {
+        res.status(500).json(error);
     }
 };
