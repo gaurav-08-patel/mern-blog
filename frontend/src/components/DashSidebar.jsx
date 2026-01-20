@@ -49,7 +49,7 @@ const DashSidebar = () => {
                                 <SidebarItem
                                     icon={TbChartBar}
                                     labelColor="dark"
-                                    active={tab === "dash"}
+                                    active={tab === "dash" || !tab}
                                     as={"div"}
                                 >
                                     Dashboard
