@@ -36,7 +36,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
                         "https://static.vecteezy.com/system/resources/thumbnails/032/176/191/small/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg"
                     }
                     alt={comment.userId?.username}
-                    className="h-10 w-10 object-cover rounded-full bg-slate-400"
+                    className="h-10 w-10 object-cover rounded-full bg-slate-400 overflow-hidden"
                 />
             </div>
             <div className="flex-1 w-9/10">
