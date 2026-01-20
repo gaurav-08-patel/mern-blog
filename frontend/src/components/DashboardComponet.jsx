@@ -163,7 +163,7 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl">
+                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">
@@ -207,7 +207,7 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl">
+                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">
@@ -245,7 +245,7 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl">
+                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">
