@@ -13,7 +13,6 @@ import {
     TableHeadCell,
     TableRow,
 } from "flowbite-react";
-import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const DashComments = () => {
