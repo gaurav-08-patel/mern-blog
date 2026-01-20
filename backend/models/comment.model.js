@@ -15,6 +15,12 @@ let commentSchema = new mongoose.Schema(
             required: true,
             ref: "User",
         },
+        postOwnerId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+
         likes: {
             type: Array,
             default: [],
@@ -24,7 +30,7 @@ let commentSchema = new mongoose.Schema(
             default: 0,
         },
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 const Comment = mongoose.model("Comment", commentSchema);

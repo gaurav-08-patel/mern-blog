@@ -1,4 +1,5 @@
 import Comment from "../models/comment.model.js";
+import Post from "../models/post.model.js";
 
 export const createComment = async (req, res) => {
     let { content, userId, postId } = req.body;
@@ -10,10 +11,14 @@ export const createComment = async (req, res) => {
     }
 
     try {
+        const post = await Post.findById(postId);
+        const postOwnerId = post.userId;
+
         let newComment = new Comment({
             content,
             userId,
             postId,
+            postOwnerId,
         });
 
         await newComment.save();
@@ -123,7 +128,7 @@ export const getComments = async (req, res) => {
     const sortDirection = req.query.order === "asc" ? 1 : -1;
 
     try {
-        let comments = await Comment.find({})
+        let comments = await Comment.find({ postOwnerId: req.user.id })
             .sort({ createdAt: sortDirection })
             .skip(startIndex)
             .limit(limit);
