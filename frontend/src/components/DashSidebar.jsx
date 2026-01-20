@@ -12,6 +12,7 @@ import {
     HiOutlineUserGroup,
     HiUser,
 } from "react-icons/hi";
+import { TbChartBar } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -43,6 +44,18 @@ const DashSidebar = () => {
             <Sidebar className="w-full md:w-56 lg:w-70 " theme={customTheme}>
                 <SidebarItems className="">
                     <SidebarItemGroup className="flex flex-col ">
+                        {authUser.isAdmin && (
+                            <Link to={"/dashboard?tab=dash"}>
+                                <SidebarItem
+                                    icon={TbChartBar}
+                                    labelColor="dark"
+                                    active={tab === "dash"}
+                                    as={"div"}
+                                >
+                                    Dashboard
+                                </SidebarItem>
+                            </Link>
+                        )}
                         <Link to={"/dashboard?tab=profile"}>
                             <SidebarItem
                                 icon={HiUser}
