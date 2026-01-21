@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ className, post, ...rest }) => {
     return (
-        <div className="sm:w-105 w-full  group my-3 border border-teal-500 hover:border-2 transition-all duration-300 relative overflow-hidden rounded-xl">
+        <div
+            className={`${className} sm:w-105 w-full  group my-3 border border-teal-500 hover:border-2 transition-all duration-300 relative overflow-hidden rounded-xl`}
+            {...rest}
+        >
             <Link to={`/post/${post.slug}`}>
                 <img
                     src={post.image}
