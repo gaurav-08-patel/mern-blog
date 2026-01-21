@@ -26,7 +26,7 @@ const Header = () => {
     const path = useLocation().pathname;
     return (
         <Navbar className="border-b-2 ">
-            <Link className="md:text-xl whitespace-nowrap dark:text-white font-bold">
+            <Link to={'/'} className="md:text-xl whitespace-nowrap dark:text-white font-bold">
                 <span className="px-2 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white py-1">
                     Gaurav's
                 </span>
