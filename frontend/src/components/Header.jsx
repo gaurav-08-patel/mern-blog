@@ -10,34 +10,59 @@ import {
     NavbarToggle,
     TextInput,
 } from "flowbite-react";
-import { Link } from "react-router-dom";
-import { FaMoon, FaSearch } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 
 const Header = () => {
     const { authUser, deleteAuthUser } = useAuthContext();
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
+    const path = location.pathname;
+
+    useEffect(() => {
+        let urlParams = new URLSearchParams(location.search);
+        let urlSearchTerm = urlParams.get("searchTerm");
+        if (urlSearchTerm) {
+            setSearchTerm(urlSearchTerm);
+        }
+    }, [location.search]);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let urlParams = new URLSearchParams(location.search);
+        urlParams.set("searchTerm", searchTerm);
+        let searchQuery = urlParams.toString();
+        navigate(`/search?${searchQuery}`);
+    }
 
     function handleSignOut() {
         deleteAuthUser();
     }
-    
-    const path = useLocation().pathname;
+
     return (
         <Navbar className="border-b-2 ">
-            <Link to={'/'} className="md:text-xl whitespace-nowrap dark:text-white font-bold">
+            <Link
+                to={"/"}
+                className="md:text-xl whitespace-nowrap dark:text-white font-bold"
+            >
                 <span className="px-2 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white py-1">
                     Gaurav's
                 </span>
                 Blog
             </Link>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <TextInput
                     type="text"
                     placeholder="Search..."
                     rightIcon={FaSearch}
                     className="hidden md:inline "
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <Button
                     className="border bg-gray text-black hover:bg-white cursor-pointer md:hidden"
@@ -48,7 +73,6 @@ const Header = () => {
             </form>
 
             <div className="flex gap-1 md:order-2">
-                
                 {authUser ? (
                     <Dropdown
                         className="cursor-pointer"
