@@ -46,7 +46,7 @@ const Home = () => {
 
             <div className="mt-10 max-w-5xl  mx-auto flex flex-col mb-5 p-3">
                 <h1 className="text-2xl text-center my-4 font-semibold">Recent Articles</h1>
-                <div className="flex flex-wrap justify-center lg:justify-between md:bg-amber-100 gap-4">
+                <div className="flex flex-wrap justify-center lg:justify-between gap-4">
                     {recentPosts &&
                         recentPosts.map((post) => (
                             <PostCard key={post._id} post={post} className="sm:w-full md:w-100"/>
