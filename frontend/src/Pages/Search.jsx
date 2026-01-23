@@ -1,6 +1,6 @@
 import { Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Search = () => {
     let [sidebarData, setSidebarData] = useState({
@@ -11,6 +11,7 @@ const Search = () => {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
     const [showMore, setShowMore] = useState(false);
+    let navigate = useNavigate();
 
     console.log(sidebarData);
 
@@ -25,7 +26,7 @@ const Search = () => {
             setSidebarData({
                 ...sidebarData,
                 searchTerm: searchTermFromUrl,
-                sort: sortFromUrl,
+                sort: sortFromUrl || "desc",
                 category: categoryFromUrl,
             });
         }
@@ -71,10 +72,25 @@ const Search = () => {
         }
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        let urlParams = new URLSearchParams(location.search);
+        if (sidebarData.searchTerm)
+            urlParams.set("searchTerm", sidebarData.searchTerm);
+        if (sidebarData.category && sidebarData.category !== "uncategorized")
+            urlParams.set("category", sidebarData.category);
+        if (sidebarData.sort) urlParams.set("order", sidebarData.sort);
+
+        navigate(`/search?${urlParams.toString()}`);
+    }
+
     return (
         <div className="min-h-screen flex flex-col md:flex-row">
             <div className=" p-6 border-b-2  border-b-gray-500 md:border-r-2 md:border-r-gray-500">
-                <form className="md:min-h-screen flex flex-col gap-3">
+                <form
+                    onSubmit={handleSubmit}
+                    className="md:min-h-screen flex flex-col gap-3"
+                >
                     <div className="flex items-center gap-2">
                         <label
                             className="whitespace-nowrap font-semibold"
