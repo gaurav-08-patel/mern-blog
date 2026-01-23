@@ -11,6 +11,7 @@ import { useAuthContext } from "./context/AuthContext";
 import CreatePost from "./Pages/CreatePost";
 import UpdatePost from "./Pages/UpdatePost";
 import PostPage from "./Pages/PostPage";
+import Search from "./Pages/Search";
 
 function App() {
     let { authUser } = useAuthContext();
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/post/:postSlug" element={<PostPage />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/search" element={<Search />} />
             </Routes>
             <FooterComp />
         </BrowserRouter>
