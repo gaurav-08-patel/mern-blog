@@ -1,6 +1,7 @@
-import { Select, TextInput } from "flowbite-react";
+import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import PostCard from "../components/PostCard";
 
 const Search = () => {
     let [sidebarData, setSidebarData] = useState({
@@ -12,8 +13,6 @@ const Search = () => {
     const [posts, setPosts] = useState([]);
     const [showMore, setShowMore] = useState(false);
     let navigate = useNavigate();
-
-    console.log(sidebarData);
 
     const location = useLocation();
     useEffect(() => {
@@ -42,10 +41,10 @@ const Search = () => {
                     let data = await res.json();
                     setPosts(data.posts);
 
-                    if (posts.length === 9) {
+                    if (data.posts.length === 9) {
                         setShowMore(true);
                     } else {
-                        setShowMore(true);
+                        setShowMore(false);
                     }
                 }
             } catch (error) {
@@ -84,9 +83,29 @@ const Search = () => {
         navigate(`/search?${urlParams.toString()}`);
     }
 
+    async function handleShowMore() {
+        let startIndex = posts.length;
+        let urlParams = new URLSearchParams(location.search);
+
+        try {
+            let res = await fetch(
+                `/api/post/getposts?${urlParams.toString()}&startIndex=${startIndex}`,
+            );
+            let data = await res.json();
+            if (res.ok) {
+                setPosts([...posts, ...data.posts]);
+                if (data.posts.length < 9) {
+                    setShowMore(false);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="min-h-screen flex flex-col md:flex-row">
-            <div className=" p-6 border-b-2  border-b-gray-500 md:border-r-2 md:border-r-gray-500">
+            <div className=" p-6 border-b  border-b-gray-500 md:border-r md:border-r-gray-500">
                 <form
                     onSubmit={handleSubmit}
                     className="md:min-h-screen flex flex-col gap-3"
@@ -139,7 +158,46 @@ const Search = () => {
                             <option value="nextjs">Next JS</option>
                         </Select>
                     </div>
+                    <Button
+                        type="submit"
+                        className={`cursor-pointer bg-linear-to-r from-blue-500 to-green-500 hover:bg-linear-to-l focus:ring-purple-200 dark:focus:ring-purple-800  font-semibold`}
+                    >
+                        Apply filters
+                    </Button>
                 </form>
+            </div>
+            <div className="w-full">
+                <div className="p-5 border-b">
+                    <h1 className="text-3xl font-semibold">Posts Results :</h1>
+                </div>
+                <div>
+                    <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] justify-center gap-4 w-full p-6">
+                        {loading ? (
+                            <p className="text-xl p-3">Loading...</p>
+                        ) : posts.length === 0 ? (
+                            <p className="text-xl p-3">No Posts found</p>
+                        ) : (
+                            posts.map((post) => {
+                                return (
+                                    <PostCard
+                                        key={post.id}
+                                        post={post}
+                                        className="w-full  mx-auto md:w-75 lg:w-auto "
+                                    />
+                                );
+                            })
+                        )}
+                    </div>
+
+                    {showMore && (
+                        <button
+                            onClick={handleShowMore}
+                            className="text-teal-500 w-full cursor-pointer my-2"
+                        >
+                            Show more
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );
