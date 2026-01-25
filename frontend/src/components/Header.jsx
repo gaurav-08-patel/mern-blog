@@ -95,9 +95,11 @@ const Header = () => {
                                 {authUser.email}
                             </span>
                         </DropdownHeader>
-                        <Link to={"/dashboard?tab=dash"}>
-                            <DropdownItem>Dashboard</DropdownItem>
-                        </Link>
+                        {authUser.isAdmin && (
+                            <Link to={"/dashboard?tab=dash"}>
+                                <DropdownItem>Dashboard</DropdownItem>
+                            </Link>
+                        )}
                         <Link to={"/dashboard?tab=profile"}>
                             <DropdownItem>Profile</DropdownItem>
                         </Link>
