@@ -68,7 +68,9 @@ const Header = () => {
                     className="border bg-gray text-black hover:bg-white cursor-pointer md:hidden"
                     pill
                 >
-                    <FaSearch />
+                    <Link to={"/search"}>
+                        <FaSearch />
+                    </Link>
                 </Button>
             </form>
 
