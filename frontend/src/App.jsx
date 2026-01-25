@@ -12,12 +12,14 @@ import CreatePost from "./Pages/CreatePost";
 import UpdatePost from "./Pages/UpdatePost";
 import PostPage from "./Pages/PostPage";
 import Search from "./Pages/Search";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
     let { authUser } = useAuthContext();
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
