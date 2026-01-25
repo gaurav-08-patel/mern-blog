@@ -86,10 +86,9 @@ const DashProfile = () => {
     function handleImage(e) {
         setError(null);
         const file = e.target.files[0];
-        if (file.type !== "image/png") {
-            return setError("Only image/png files are allowed !");
+        if (file.type !== "image/png" && file.type !== "image/jpeg") {
+            return setError("Only png/jpeg files are allowed !");
         }
-
         if (file) {
             setImageFile(file);
             setImageUrl(URL.createObjectURL(file));
