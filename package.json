@@ -1,36 +1,37 @@
 {
-  "name": "blog_app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "dev": "nodemon backend/server.js",
-    "start": "node backend/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gaurav-08-patel/mern-blog.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/gaurav-08-patel/mern-blog/issues"
-  },
-  "homepage": "https://github.com/gaurav-08-patel/mern-blog#readme",
-  "devDependencies": {
-    "nodemon": "^3.1.11"
-  },
-  "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "cloudinary": "^1.41.3",
-    "cookie-parser": "^1.4.7",
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.1.1",
-    "multer": "^2.0.2",
-    "multer-storage-cloudinary": "^4.0.0"
-  }
+    "name": "blog_app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon backend/server.js",
+        "start": "node backend/server.js",
+        "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gaurav-08-patel/mern-blog.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "bugs": {
+        "url": "https://github.com/gaurav-08-patel/mern-blog/issues"
+    },
+    "homepage": "https://github.com/gaurav-08-patel/mern-blog#readme",
+    "devDependencies": {
+        "nodemon": "^3.1.11"
+    },
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cloudinary": "^1.41.3",
+        "cookie-parser": "^1.4.7",
+        "dotenv": "^17.2.3",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.3",
+        "mongoose": "^9.1.1",
+        "multer": "^2.0.2",
+        "multer-storage-cloudinary": "^4.0.0"
+    }
 }
