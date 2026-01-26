@@ -54,3 +54,22 @@ ul {
 .post-content blockquote p {
     margin-bottom: 0;
 }
+
+@media (max-width: 450px) {
+    /* Styles for screens smaller than 500px */
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .post-content blockquote {
+        font-size: 14px;
+    }
+    .post-content p {
+        font-size: 14px;
+    }
+}
