@@ -36,7 +36,7 @@ const Search = () => {
             try {
                 setLoading(true);
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?${searchQuery}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?${searchQuery}`,
                 );
 
                 if (res.ok) {
@@ -91,7 +91,7 @@ const Search = () => {
 
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/post/getposts?${urlParams.toString()}&startIndex=${startIndex}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?${urlParams.toString()}&startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {

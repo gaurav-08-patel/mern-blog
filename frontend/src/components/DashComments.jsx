@@ -28,7 +28,7 @@ const DashComments = () => {
 
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/deleteComment/${commentToDelete}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/deleteComment/${commentToDelete}`,
                 {
                     method: "DELETE",
                 },
@@ -47,7 +47,7 @@ const DashComments = () => {
         let startIndex = comments.length;
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/getComments?startIndex=${startIndex}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments?startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -66,7 +66,7 @@ const DashComments = () => {
             try {
                 setFetchingComment(true);
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/comment/getComments`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments`,
                 );
                 let data = await res.json();
 

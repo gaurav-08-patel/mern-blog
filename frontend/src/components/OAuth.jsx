@@ -16,7 +16,7 @@ const OAuth = () => {
             const resultsFromGoogle = await signInWithPopup(auth, provider);
 
             let res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/auth/google",
+                `${import.meta.env.VITE_API_BASE_URL}/api/auth/google`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

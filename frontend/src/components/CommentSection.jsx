@@ -16,7 +16,7 @@ const CommentSection = ({ postId }) => {
         async function fetchComments() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/comment/getPostComments/${postId}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/comment/getPostComments/${postId}`,
                 );
 
                 if (res.ok) {
@@ -38,7 +38,7 @@ const CommentSection = ({ postId }) => {
 
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/likeComment/${commentId}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/likeComment/${commentId}`,
                 {
                     method: "PUT",
                 },
@@ -72,7 +72,7 @@ const CommentSection = ({ postId }) => {
         try {
             setLoading(true);
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/create`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/create`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -113,7 +113,7 @@ const CommentSection = ({ postId }) => {
         console.log(commentId);
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/deleteComment/${commentId}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/deleteComment/${commentId}`,
                 {
                     method: "DELETE",
                 },

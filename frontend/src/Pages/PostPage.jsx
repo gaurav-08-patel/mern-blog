@@ -17,7 +17,7 @@ const PostPage = () => {
             try {
                 setLoading(true);
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?slug=${postSlug}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?slug=${postSlug}`,
                 );
                 let data = await res.json();
 
@@ -45,7 +45,7 @@ const PostPage = () => {
         async function fetchRecentPost() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?limit=3`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?limit=3`,
                 );
 
                 if (res.ok) {

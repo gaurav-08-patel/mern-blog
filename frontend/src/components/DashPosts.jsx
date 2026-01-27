@@ -29,7 +29,7 @@ const DashPosts = () => {
 
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/post/deletepost/${postToDelete}/${authUser._id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/post/deletepost/${postToDelete}/${authUser._id}`,
                 {
                     method: "DELETE",
                 },
@@ -48,7 +48,7 @@ const DashPosts = () => {
         let startIndex = userPosts.length;
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -67,7 +67,7 @@ const DashPosts = () => {
             try {
                 setFetchingPost(true);
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?userId=${authUser._id}`,
                 );
                 let data = await res.json();
 

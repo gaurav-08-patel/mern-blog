@@ -39,7 +39,7 @@ const CreatePost = () => {
         try {
             setIsImageUploading(true);
             const res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/upload",
+                `${import.meta.env.VITE_API_BASE_URL}/api/upload`,
                 {
                     method: "POST",
                     body: formData,
@@ -73,7 +73,7 @@ const CreatePost = () => {
         try {
             setIsPostPublishing(true);
             let res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/post/create",
+                `${import.meta.env.VITE_API_BASE_URL}/api/post/create`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

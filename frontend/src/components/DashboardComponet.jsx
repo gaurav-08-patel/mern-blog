@@ -31,7 +31,7 @@ const DashboardComponet = () => {
         async function fetchUsers() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/user/getusers?limit=5`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/user/getusers?limit=5`,
                 );
 
                 if (res.ok) {
@@ -47,7 +47,7 @@ const DashboardComponet = () => {
         async function fetchPosts() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}&limit=5`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?userId=${authUser._id}&limit=5`,
                 );
 
                 if (res.ok) {
@@ -63,7 +63,7 @@ const DashboardComponet = () => {
         async function fetchComments() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/comment/getComments?limit=5`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments?limit=5`,
                 );
 
                 if (res.ok) {

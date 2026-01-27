@@ -30,7 +30,7 @@ const DashUsers = () => {
 
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/user/delete/${userToDelete}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${userToDelete}`,
                 {
                     method: "DELETE",
                 },
@@ -49,7 +49,7 @@ const DashUsers = () => {
         let startIndex = users.length;
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/user/getusers?startIndex=${startIndex}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/user/getusers?startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -68,7 +68,7 @@ const DashUsers = () => {
             try {
                 setFetchingUsers(true);
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/user/getusers`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/user/getusers`,
                 );
                 let data = await res.json();
 

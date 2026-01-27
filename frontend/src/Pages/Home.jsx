@@ -10,7 +10,7 @@ const Home = () => {
         async function fetchRecentPost() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?limit=9`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?limit=9`,
                 );
 
                 if (res.ok) {

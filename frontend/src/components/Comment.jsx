@@ -13,7 +13,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
         setIsEditing(false);
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/comment/editComment/${comment._id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/comment/editComment/${comment._id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },

@@ -31,7 +31,7 @@ const UpdatePost = () => {
         async function fetchData() {
             try {
                 let res = await fetch(
-                    `mern-blog-production-674c.up.railway.app/api/post/getposts?postId=${postId}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?postId=${postId}`,
                 );
                 let data = await res.json();
                 if (!res.ok) return setErrorFetchingPost(true);
@@ -68,7 +68,7 @@ const UpdatePost = () => {
         try {
             setIsImageUploading(true);
             const res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/upload",
+                `${import.meta.env.VITE_API_BASE_URL}/api/upload`,
                 {
                     method: "POST",
                     body: formData,
@@ -102,7 +102,7 @@ const UpdatePost = () => {
         try {
             setIsPostPublishing(true);
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/post/updatepost/${postId}/${authUser._id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/post/updatepost/${postId}/${authUser._id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },

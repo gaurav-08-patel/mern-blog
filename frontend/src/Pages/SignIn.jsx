@@ -23,7 +23,7 @@ const SignIn = () => {
         try {
             setLoading(true);
             const res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/auth/signin",
+                `${import.meta.env.VITE_API_BASE_URL}/api/auth/signin`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

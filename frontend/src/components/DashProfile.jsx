@@ -29,7 +29,7 @@ const DashProfile = () => {
         setOpenModal(false);
         try {
             let res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/user/delete/${authUser._id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${authUser._id}`,
                 {
                     method: "DELETE",
                 },
@@ -60,7 +60,7 @@ const DashProfile = () => {
             setLoading(true);
 
             const res = await fetch(
-                `mern-blog-production-674c.up.railway.app/api/user/update/${authUser._id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/api/user/update/${authUser._id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -110,7 +110,7 @@ const DashProfile = () => {
         try {
             setIsImageUploading(true);
             const res = await fetch(
-                "mern-blog-production-674c.up.railway.app/api/upload",
+                `${import.meta.env.VITE_API_BASE_URL}/api/upload`,
                 {
                     method: "POST",
                     body: formData,
