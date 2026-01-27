@@ -12,11 +12,14 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
     async function handleSave() {
         setIsEditing(false);
         try {
-            let res = await fetch(`/api/comment/editComment/${comment._id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: editedContent }),
-            });
+            let res = await fetch(
+                `mern-blog-production-674c.up.railway.app/api/comment/editComment/${comment._id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: editedContent }),
+                },
+            );
 
             if (res.ok) {
                 let data = await res.json();

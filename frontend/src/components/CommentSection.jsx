@@ -15,7 +15,9 @@ const CommentSection = ({ postId }) => {
     useEffect(() => {
         async function fetchComments() {
             try {
-                let res = await fetch(`/api/comment/getPostComments/${postId}`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/comment/getPostComments/${postId}`,
+                );
 
                 if (res.ok) {
                     let data = await res.json();
@@ -35,9 +37,12 @@ const CommentSection = ({ postId }) => {
         }
 
         try {
-            let res = await fetch(`/api/comment/likeComment/${commentId}`, {
-                method: "PUT",
-            });
+            let res = await fetch(
+                `mern-blog-production-674c.up.railway.app/api/comment/likeComment/${commentId}`,
+                {
+                    method: "PUT",
+                },
+            );
 
             if (res.ok) {
                 let data = await res.json();
@@ -66,15 +71,18 @@ const CommentSection = ({ postId }) => {
 
         try {
             setLoading(true);
-            let res = await fetch(`/api/comment/create`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    content: comment,
-                    postId: postId,
-                    userId: authUser._id,
-                }),
-            });
+            let res = await fetch(
+                `mern-blog-production-674c.up.railway.app/api/comment/create`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        content: comment,
+                        postId: postId,
+                        userId: authUser._id,
+                    }),
+                },
+            );
 
             let data = await res.json();
             if (res.ok) {
@@ -104,9 +112,12 @@ const CommentSection = ({ postId }) => {
     async function handleDelete(commentId) {
         console.log(commentId);
         try {
-            let res = await fetch(`/api/comment/deleteComment/${commentId}`, {
-                method: "DELETE",
-            });
+            let res = await fetch(
+                `mern-blog-production-674c.up.railway.app/api/comment/deleteComment/${commentId}`,
+                {
+                    method: "DELETE",
+                },
+            );
 
             if (res.ok) {
                 setComments(comments.filter((c) => c._id !== commentId));

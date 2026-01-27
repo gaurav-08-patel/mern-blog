@@ -38,10 +38,13 @@ const CreatePost = () => {
 
         try {
             setIsImageUploading(true);
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-            });
+            const res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                },
+            );
 
             const data = await res.json();
             if (!res.ok) {
@@ -69,11 +72,14 @@ const CreatePost = () => {
 
         try {
             setIsPostPublishing(true);
-            let res = await fetch("/api/post/create", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            let res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/post/create",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                },
+            );
 
             let data = await res.json();
 

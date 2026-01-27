@@ -30,7 +30,9 @@ const DashboardComponet = () => {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                let res = await fetch(`/api/user/getusers?limit=5`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/user/getusers?limit=5`,
+                );
 
                 if (res.ok) {
                     let data = await res.json();
@@ -45,7 +47,7 @@ const DashboardComponet = () => {
         async function fetchPosts() {
             try {
                 let res = await fetch(
-                    `/api/post/getposts?userId=${authUser._id}&limit=5`,
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}&limit=5`,
                 );
 
                 if (res.ok) {
@@ -60,7 +62,9 @@ const DashboardComponet = () => {
         }
         async function fetchComments() {
             try {
-                let res = await fetch(`/api/comment/getComments?limit=5`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/comment/getComments?limit=5`,
+                );
 
                 if (res.ok) {
                     let data = await res.json();
@@ -163,7 +167,10 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
+                        <Table
+                            hoverable
+                            className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden"
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">
@@ -207,7 +214,10 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
+                        <Table
+                            hoverable
+                            className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden"
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">
@@ -245,7 +255,10 @@ const DashboardComponet = () => {
                         </Link>
                     </div>
                     <div>
-                        <Table hoverable className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden">
+                        <Table
+                            hoverable
+                            className="divide-y rounded-2xl dark:bg-slate-700 overflow-hidden"
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableHeadCell className="whitespace-nowrap">

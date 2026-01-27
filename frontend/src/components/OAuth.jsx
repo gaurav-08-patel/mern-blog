@@ -15,22 +15,24 @@ const OAuth = () => {
         try {
             const resultsFromGoogle = await signInWithPopup(auth, provider);
 
-            let res = await fetch("/api/auth/google", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: resultsFromGoogle.user.displayName,
-                    email: resultsFromGoogle.user.email,
-                    googlePhotoUrl: resultsFromGoogle.user.photoURL,
-                }),
-            });
+            let res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/auth/google",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: resultsFromGoogle.user.displayName,
+                        email: resultsFromGoogle.user.email,
+                        googlePhotoUrl: resultsFromGoogle.user.photoURL,
+                    }),
+                },
+            );
 
             let data = await res.json();
             if (res.ok) {
                 saveAuthUser(data);
                 navigate("/");
             }
-            
         } catch (error) {
             console.log(error);
         }

@@ -16,7 +16,9 @@ const PostPage = () => {
         async function fetchPost() {
             try {
                 setLoading(true);
-                let res = await fetch(`/api/post/getposts?slug=${postSlug}`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?slug=${postSlug}`,
+                );
                 let data = await res.json();
 
                 if (!res.ok) {
@@ -42,7 +44,9 @@ const PostPage = () => {
     useEffect(() => {
         async function fetchRecentPost() {
             try {
-                let res = await fetch(`/api/post/getposts?limit=3`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?limit=3`,
+                );
 
                 if (res.ok) {
                     let data = await res.json();

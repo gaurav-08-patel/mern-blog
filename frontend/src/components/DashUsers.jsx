@@ -29,12 +29,15 @@ const DashUsers = () => {
         setOpenModal(false);
 
         try {
-            let res = await fetch(`/api/user/delete/${userToDelete}`, {
-                method: "DELETE",
-            });
+            let res = await fetch(
+                `mern-blog-production-674c.up.railway.app/api/user/delete/${userToDelete}`,
+                {
+                    method: "DELETE",
+                },
+            );
             if (res.ok) {
                 setUsers((prev) =>
-                    prev.filter((user) => user._id !== userToDelete)
+                    prev.filter((user) => user._id !== userToDelete),
                 );
             }
         } catch (error) {
@@ -46,7 +49,7 @@ const DashUsers = () => {
         let startIndex = users.length;
         try {
             let res = await fetch(
-                `/api/user/getusers?startIndex=${startIndex}`
+                `mern-blog-production-674c.up.railway.app/api/user/getusers?startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -64,7 +67,9 @@ const DashUsers = () => {
         async function fetchUsers() {
             try {
                 setFetchingUsers(true);
-                let res = await fetch(`/api/user/getusers`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/user/getusers`,
+                );
                 let data = await res.json();
 
                 if (res.ok) {
@@ -112,7 +117,7 @@ const DashUsers = () => {
                                 <TableRow key={user._id}>
                                     <TableCell>
                                         {new Date(
-                                            user.updatedAt
+                                            user.updatedAt,
                                         ).toLocaleDateString()}
                                     </TableCell>
                                     <TableCell>

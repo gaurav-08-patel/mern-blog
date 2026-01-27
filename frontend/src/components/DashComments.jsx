@@ -28,7 +28,7 @@ const DashComments = () => {
 
         try {
             let res = await fetch(
-                `/api/comment/deleteComment/${commentToDelete}`,
+                `mern-blog-production-674c.up.railway.app/api/comment/deleteComment/${commentToDelete}`,
                 {
                     method: "DELETE",
                 },
@@ -47,7 +47,7 @@ const DashComments = () => {
         let startIndex = comments.length;
         try {
             let res = await fetch(
-                `/api/comment/getComments?startIndex=${startIndex}`,
+                `mern-blog-production-674c.up.railway.app/api/comment/getComments?startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -65,7 +65,9 @@ const DashComments = () => {
         async function fetchingComment() {
             try {
                 setFetchingComment(true);
-                let res = await fetch(`/api/comment/getComments`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/comment/getComments`,
+                );
                 let data = await res.json();
 
                 if (res.ok) {

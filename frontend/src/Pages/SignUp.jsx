@@ -20,11 +20,14 @@ const SignUp = () => {
 
         try {
             setLoading(true);
-            const res = await fetch("/api/auth/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            const res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/auth/signup",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                },
+            );
 
             let data = await res.json();
             // console.log(data);

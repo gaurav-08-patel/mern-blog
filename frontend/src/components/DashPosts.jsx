@@ -29,14 +29,14 @@ const DashPosts = () => {
 
         try {
             let res = await fetch(
-                `/api/post/deletepost/${postToDelete}/${authUser._id}`,
+                `mern-blog-production-674c.up.railway.app/api/post/deletepost/${postToDelete}/${authUser._id}`,
                 {
                     method: "DELETE",
-                }
+                },
             );
             if (res.ok) {
                 setUserPosts((prev) =>
-                    prev.filter((post) => post._id !== postToDelete)
+                    prev.filter((post) => post._id !== postToDelete),
                 );
             }
         } catch (error) {
@@ -48,7 +48,7 @@ const DashPosts = () => {
         let startIndex = userPosts.length;
         try {
             let res = await fetch(
-                `/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`
+                `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}&startIndex=${startIndex}`,
             );
             let data = await res.json();
             if (res.ok) {
@@ -67,7 +67,7 @@ const DashPosts = () => {
             try {
                 setFetchingPost(true);
                 let res = await fetch(
-                    `/api/post/getposts?userId=${authUser._id}`
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?userId=${authUser._id}`,
                 );
                 let data = await res.json();
 
@@ -113,7 +113,7 @@ const DashPosts = () => {
                                 <TableRow>
                                     <TableCell>
                                         {new Date(
-                                            post.updatedAt
+                                            post.updatedAt,
                                         ).toLocaleDateString()}
                                     </TableCell>
                                     <TableCell>

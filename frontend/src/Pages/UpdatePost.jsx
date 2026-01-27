@@ -30,7 +30,9 @@ const UpdatePost = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                let res = await fetch(`/api/post/getposts?postId=${postId}`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?postId=${postId}`,
+                );
                 let data = await res.json();
                 if (!res.ok) return setErrorFetchingPost(true);
                 if (res.ok) {
@@ -65,10 +67,13 @@ const UpdatePost = () => {
 
         try {
             setIsImageUploading(true);
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-            });
+            const res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                },
+            );
 
             const data = await res.json();
             if (!res.ok) {
@@ -97,12 +102,12 @@ const UpdatePost = () => {
         try {
             setIsPostPublishing(true);
             let res = await fetch(
-                `/api/post/updatepost/${postId}/${authUser._id}`,
+                `mern-blog-production-674c.up.railway.app/api/post/updatepost/${postId}/${authUser._id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
-                }
+                },
             );
 
             let data = await res.json();

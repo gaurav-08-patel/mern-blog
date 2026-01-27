@@ -22,11 +22,14 @@ const SignIn = () => {
 
         try {
             setLoading(true);
-            const res = await fetch("/api/auth/signin", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            const res = await fetch(
+                "mern-blog-production-674c.up.railway.app/api/auth/signin",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                },
+            );
 
             let data = await res.json();
             // console.log(data);
@@ -39,7 +42,6 @@ const SignIn = () => {
                 saveAuthUser(data);
                 navigate("/");
             }
-
         } catch (error) {
             setErrorMessage(error.message);
         } finally {
@@ -106,7 +108,7 @@ const SignIn = () => {
                             )}
                             {!loading && "Sign In"}
                         </Button>
-                        <OAuth/>
+                        <OAuth />
                     </form>
                     <p className="mt-2">
                         Dont have an account ?{" "}

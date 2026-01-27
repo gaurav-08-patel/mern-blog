@@ -9,7 +9,9 @@ const Home = () => {
     useEffect(() => {
         async function fetchRecentPost() {
             try {
-                let res = await fetch(`/api/post/getposts?limit=9`);
+                let res = await fetch(
+                    `mern-blog-production-674c.up.railway.app/api/post/getposts?limit=9`,
+                );
 
                 if (res.ok) {
                     let data = await res.json();
@@ -45,11 +47,17 @@ const Home = () => {
             </div>
 
             <div className="mt-10 max-w-5xl  mx-auto flex flex-col mb-5 p-3">
-                <h1 className="text-2xl text-center my-4 font-semibold">Recent Articles</h1>
+                <h1 className="text-2xl text-center my-4 font-semibold">
+                    Recent Articles
+                </h1>
                 <div className="flex flex-wrap justify-center lg:justify-between gap-4">
                     {recentPosts &&
                         recentPosts.map((post) => (
-                            <PostCard key={post._id} post={post} className="sm:w-full md:w-100"/>
+                            <PostCard
+                                key={post._id}
+                                post={post}
+                                className="sm:w-full md:w-100"
+                            />
                         ))}
                 </div>
                 <span className="font-semibold text-xl text-teal-500 hover:underline mt-4 text-center">
