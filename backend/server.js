@@ -26,6 +26,14 @@ import postRoute from "./routes/post.routes.js";
 import commentRoute from "./routes/comment.routes.js";
 import { upload } from "./hooks/uploadImg.js";
 
+//cors
+app.use(
+    cors({
+        origin: "https://mern-blog-rzgl.vercel.app",
+        credentials: true,
+    }),
+);
+
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
@@ -35,13 +43,6 @@ app.use("/api/comment", commentRoute);
 app.post("/api/upload", upload.single("image"), (req, res) => {
     res.json({ url: req.file.path }); // Cloudinary URL
 });
-
-app.use(
-    cors({
-        origin: "https://mern-blog-rzgl.vercel.app",
-        credentials: true,
-    }),
-);
 
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
 // app.get(/^.*$/, (req, res) => {
