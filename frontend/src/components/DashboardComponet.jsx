@@ -45,7 +45,7 @@ const DashboardComponet = () => {
         async function fetchPosts() {
             try {
                 let res = await fetch(
-                    `/api/post/getposts?userId=${authUser._id}?limit=5`,
+                    `/api/post/getposts?userId=${authUser._id}&limit=5`,
                 );
 
                 if (res.ok) {
