@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
-let __dirname = path.resolve();
+import cors from "cors";
+
+// let __dirname = path.resolve();
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -33,6 +35,13 @@ app.use("/api/comment", commentRoute);
 app.post("/api/upload", upload.single("image"), (req, res) => {
     res.json({ url: req.file.path }); // Cloudinary URL
 });
+
+app.use(
+    cors({
+        origin: "https://mern-blog-rzgl.vercel.app",
+        credentials: true,
+    }),
+);
 
 // app.use(express.static(path.join(__dirname, "/frontend/dist")));
 // app.get(/^.*$/, (req, res) => {
