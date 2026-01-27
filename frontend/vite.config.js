@@ -13,4 +13,7 @@ export default defineConfig({
         },
     },
     plugins: [tailwindcss(), react(), flowbiteReact()],
+    build: {
+        outDir: "dist",
+    },
 });
