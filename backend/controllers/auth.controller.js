@@ -45,13 +45,15 @@ export const signin = async (req, res) => {
         process.env.JWT_SECRET,
         {
             expiresIn: "15d",
-        }
+        },
     );
 
     let { password: pass, ...rest } = validUser._doc;
     res.status(200)
         .cookie("access_token", token, {
             httpOnly: true,
+            secure: true, // Required for HTTPS
+            sameSite: "None",
         })
         .json(rest);
 };
@@ -67,7 +69,7 @@ export const google = async (req, res) => {
                 process.env.JWT_SECRET,
                 {
                     expiresIn: "15d",
-                }
+                },
             );
 
             const { password, ...rest } = user._doc;
@@ -75,6 +77,8 @@ export const google = async (req, res) => {
             res.status(200)
                 .cookie("access_token", token, {
                     httpOnly: true,
+                    secure: true, // Required for HTTPS
+                    sameSite: "None",
                 })
                 .json(rest);
         } else {
@@ -98,7 +102,7 @@ export const google = async (req, res) => {
                 process.env.JWT_SECRET,
                 {
                     expiresIn: "15d",
-                }
+                },
             );
 
             const { password, ...rest } = newUser._doc;
