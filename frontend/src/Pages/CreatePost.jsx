@@ -76,6 +76,7 @@ const CreatePost = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/post/create`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 },

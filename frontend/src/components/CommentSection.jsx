@@ -41,6 +41,7 @@ const CommentSection = ({ postId }) => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/comment/likeComment/${commentId}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                 },
             );
 
@@ -75,6 +76,7 @@ const CommentSection = ({ postId }) => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/comment/create`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         content: comment,
@@ -116,6 +118,7 @@ const CommentSection = ({ postId }) => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/comment/deleteComment/${commentId}`,
                 {
                     method: "DELETE",
+                    credentials: "include",
                 },
             );
 

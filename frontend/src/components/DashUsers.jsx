@@ -33,6 +33,7 @@ const DashUsers = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${userToDelete}`,
                 {
                     method: "DELETE",
+                    credentials: "include",
                 },
             );
             if (res.ok) {
@@ -69,6 +70,9 @@ const DashUsers = () => {
                 setFetchingUsers(true);
                 let res = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/user/getusers`,
+                    {
+                        credentials: "include",
+                    },
                 );
                 let data = await res.json();
 

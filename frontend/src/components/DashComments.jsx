@@ -48,6 +48,9 @@ const DashComments = () => {
         try {
             let res = await fetch(
                 `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments?startIndex=${startIndex}`,
+                {
+                    credentials: "include",
+                },
             );
             let data = await res.json();
             if (res.ok) {
@@ -66,7 +69,9 @@ const DashComments = () => {
             try {
                 setFetchingComment(true);
                 let res = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments`,{
+                        credentials: "include",
+                    }
                 );
                 let data = await res.json();
 

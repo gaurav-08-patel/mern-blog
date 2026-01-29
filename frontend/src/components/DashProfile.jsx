@@ -63,6 +63,7 @@ const DashProfile = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/user/update/${authUser._id}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 },

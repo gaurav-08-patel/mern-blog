@@ -16,6 +16,7 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/comment/editComment/${comment._id}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ content: editedContent }),
                 },

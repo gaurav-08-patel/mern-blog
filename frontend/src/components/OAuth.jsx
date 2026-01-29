@@ -19,6 +19,7 @@ const OAuth = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/auth/google`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         name: resultsFromGoogle.user.displayName,

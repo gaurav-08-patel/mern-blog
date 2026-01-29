@@ -105,6 +105,7 @@ const UpdatePost = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/post/updatepost/${postId}/${authUser._id}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 },

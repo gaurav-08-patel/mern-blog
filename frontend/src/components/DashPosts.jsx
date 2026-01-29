@@ -32,6 +32,7 @@ const DashPosts = () => {
                 `${import.meta.env.VITE_API_BASE_URL}/api/post/deletepost/${postToDelete}/${authUser._id}`,
                 {
                     method: "DELETE",
+                    credentials: "include",
                 },
             );
             if (res.ok) {

@@ -32,6 +32,9 @@ const DashboardComponet = () => {
             try {
                 let res = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/user/getusers?limit=5`,
+                    {
+                        credentials: "include",
+                    },
                 );
 
                 if (res.ok) {
@@ -64,6 +67,9 @@ const DashboardComponet = () => {
             try {
                 let res = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/comment/getComments?limit=5`,
+                    {
+                        credentials: "include",
+                    },
                 );
 
                 if (res.ok) {
