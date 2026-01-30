@@ -29,7 +29,7 @@ import { upload } from "./hooks/uploadImg.js";
 //cors
 app.use(
     cors({
-        origin: "https://mern-blog-rzgl.vercel.app",
+        origin: ["https://mern-blog-rzgl.vercel.app","http://localhost:5173"],
         credentials: true,
     }),
 );
