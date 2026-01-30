@@ -92,18 +92,18 @@ const Comment = ({ comment, onLike, edit, deleteComment }) => {
                             <FaThumbsUp />
                             <span>{comment.numberOfLikes}</span>
                         </button>
-                        {
-                        authUser &&  (authUser.id === comment.userId._id || authUser.isAdmin) && (
+                        {authUser &&
+                            (authUser._id === comment.userId._id ||
+                                authUser.isAdmin) && (
                                 <button
                                     className="hover:text-blue-500 cursor-pointer hover:underline"
                                     onClick={() => setIsEditing(true)}
                                 >
                                     Edit
                                 </button>
-                            )
-                            }
+                            )}
                         {authUser &&
-                            (authUser.id === comment.userId._id ||
+                            (authUser._id === comment.userId._id ||
                                 authUser.isAdmin) && (
                                 <button
                                     className=" cursor-pointer hover:underline text-red-500"
