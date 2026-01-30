@@ -78,7 +78,8 @@ export const editComment = async (req, res) => {
             res.status(404).json("Comment not found.");
         }
 
-        if (req.user.id !== comment.userId && !req.user.isAdmin) {
+        //req.user.id is string where as comment.userId is Mongo object id which will be true if comapred strictly
+        if (req.user.id != comment.userId && !req.user.isAdmin) {
             return res
                 .status(403)
                 .json("You are not authorized to edit this comment.");
