@@ -18,7 +18,7 @@ function App() {
     let { authUser } = useAuthContext();
 
     return (
-        <BrowserRouter>
+        <BrowserRouter > 
             <ScrollToTop />
             <Header />
             <Routes>
